@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota V10</title>
+<title>E-Rota V11</title>
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -25,60 +25,61 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
-background:#08111f;
-color:white;
+background:#f5f7fb;
+color:#222;
 }
 
 .login-screen{
-padding:25px;
 min-height:100vh;
 display:flex;
-flex-direction:column;
 justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.login-card{
+background:white;
+width:100%;
+max-width:420px;
+padding:25px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .logo{
 font-size:42px;
 font-weight:700;
 text-align:center;
+color:#00b36b;
 margin-bottom:10px;
-color:#42d66b;
 }
 
 .subtitle{
 text-align:center;
-margin-bottom:30px;
-opacity:.8;
-}
-
-.card{
-background:#13233b;
-padding:18px;
-border-radius:18px;
-margin-bottom:15px;
-box-shadow:0 4px 12px rgba(0,0,0,.25);
+color:#777;
+margin-bottom:25px;
 }
 
 input,
 select{
 width:100%;
 padding:14px;
-border:none;
-border-radius:12px;
 margin-top:10px;
+border:1px solid #ddd;
+border-radius:14px;
 font-size:15px;
+background:white;
 }
 
 button{
 width:100%;
 padding:14px;
-margin-top:10px;
 border:none;
 border-radius:14px;
-background:#42d66b;
-color:#08111f;
+margin-top:10px;
+background:#00b36b;
+color:white;
 font-weight:bold;
-font-size:15px;
 cursor:pointer;
 }
 
@@ -87,12 +88,20 @@ display:none;
 padding-bottom:90px;
 }
 
-.header{
-padding:20px;
-text-align:center;
-font-size:34px;
-font-weight:bold;
-color:#42d66b;
+.topbar{
+background:white;
+padding:15px;
+position:sticky;
+top:0;
+z-index:100;
+box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+
+.search{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #ddd;
 }
 
 .page{
@@ -104,25 +113,48 @@ padding:15px;
 display:block;
 }
 
-.result-box{
-background:#0f1c30;
+.card{
+background:white;
+border-radius:24px;
+padding:18px;
+margin-bottom:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.card-title{
+font-size:18px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.result{
+background:#f2f5f8;
 padding:12px;
-border-radius:12px;
+border-radius:14px;
 margin-top:10px;
 }
 
-.station{
-padding:14px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
+.station-card{
+background:white;
+padding:18px;
+border-radius:20px;
+margin-bottom:12px;
+box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
 
-.station:last-child{
-border:none;
+.station-name{
+font-weight:700;
+font-size:17px;
+}
+
+.station-info{
+color:#666;
+margin-top:6px;
 }
 
 #mapContainer{
-height:420px;
-border-radius:18px;
+height:450px;
+border-radius:24px;
 overflow:hidden;
 margin-top:10px;
 }
@@ -133,23 +165,23 @@ bottom:0;
 left:0;
 width:100%;
 height:75px;
-background:#0f1c30;
+background:white;
 display:flex;
 justify-content:space-around;
 align-items:center;
-border-top:1px solid rgba(255,255,255,.08);
+box-shadow:0 -2px 12px rgba(0,0,0,.08);
 }
 
 .nav-item{
 text-align:center;
 font-size:13px;
-color:#bbb;
+color:#888;
 cursor:pointer;
 }
 
 .nav-item.active{
-color:#42d66b;
-font-weight:bold;
+color:#00b36b;
+font-weight:700;
 }
 
 </style>
@@ -163,6 +195,8 @@ font-weight:bold;
 <div id="loginScreen"
 class="login-screen">
 
+<div class="login-card">
+
 <div class="logo">
 ⚡ E-Rota
 </div>
@@ -171,16 +205,12 @@ class="login-screen">
 Elektrikli yolculukların akıllı rotası
 </div>
 
-<div class="card">
-
-<h3>Giriş Yap</h3>
-
 <input
-id="loginEmail"
+id="email"
 placeholder="E-Posta">
 
 <input
-id="loginPassword"
+id="password"
 type="password"
 placeholder="Şifre">
 
@@ -192,27 +222,13 @@ Giriş Yap
 Kayıt Ol
 </button>
 
-</div>
-
 <div
-id="registerCard"
-class="card"
+id="registerArea"
 style="display:none;">
 
-<h3>Kayıt Ol</h3>
-
 <input
-id="registerName"
+id="name"
 placeholder="Ad Soyad">
-
-<input
-id="registerEmail"
-placeholder="E-Posta">
-
-<input
-id="registerPassword"
-type="password"
-placeholder="Şifre">
 
 <button onclick="registerUser()">
 Hesap Oluştur
@@ -222,29 +238,33 @@ Hesap Oluştur
 
 </div>
 
-<!-- UYGULAMA -->
+</div>
+
+<!-- APP -->
 
 <div id="app"
 class="app">
 
-<div class="header">
+<div class="topbar">
 
-⚡ E-Rota
+<input
+class="search"
+placeholder="İstasyon veya adres ara...">
 
 </div>
-
-<!-- ANA SAYFA -->
 
 <div
-id="home"<div class="card">
+id="home"
+class="page active">
+  <!-- ANA EKRAN -->
 
-<h3>🚗 Araç Garajım</h3>
+<div class="card">
 
-<div id="garageList">
-Togg T10X ⭐
+<div class="card-title">
+🚗 Araç Garajım
 </div>
 
-<select id="garageVehicle">
+<select id="vehicleSelect">
 
 <option>Togg T10X</option>
 <option>Tesla Model Y</option>
@@ -262,17 +282,23 @@ Togg T10X ⭐
 
 </select>
 
-<button onclick="addVehicle()">
-➕ Aracı Garaja Ekle
-</button>
+<div class="result"
+id="selectedVehicle">
+
+🚗 Seçili Araç:
+Togg T10X
+
+</div>
 
 </div>
 
 <div class="card">
 
-<h3 id="batteryText">
-🔋 Batarya: %68
-</h3>
+<div class="card-title">
+
+🔋 Batarya
+
+</div>
 
 <input
 id="battery"
@@ -282,25 +308,21 @@ max="100"
 value="68"
 oninput="updateBattery()">
 
-<div class="result-box">
+<div
+class="result"
+id="batteryText">
 
-🚗 Tahmini Menzil
-
-<br><br>
-
-<span id="rangeText">
-355 km
-</span>
+Batarya:
+%68
 
 </div>
 
-<div class="result-box">
+<div
+class="result"
+id="rangeText">
 
-⚡ Ortalama Tüketim
-
-<br><br>
-
-16 kWh / 100 km
+Tahmini Menzil:
+355 km
 
 </div>
 
@@ -308,23 +330,29 @@ oninput="updateBattery()">
 
 <div class="card">
 
-<h3>🗺️ Rota Planlama</h3>
+<div class="card-title">
+
+🗺️ Rota Planlama
+
+</div>
 
 <input
 id="startPoint"
-placeholder="Başlangıç Noktası">
+placeholder="Başlangıç">
 
 <input
 id="endPoint"
-placeholder="Varış Noktası">
+placeholder="Varış">
 
 <button onclick="planRoute()">
-🚗 Rota Oluştur
+
+Rota Oluştur
+
 </button>
 
 <div
-id="routeResult"
-class="result-box">
+class="result"
+id="routeResult">
 
 Henüz rota oluşturulmadı.
 
@@ -334,45 +362,30 @@ Henüz rota oluşturulmadı.
 
 <div class="card">
 
-<h3>💰 Şarj Maliyet Hesabı</h3>
+<div class="card-title">
 
-<input
-id="kwhInput"
-type="number"
-placeholder="Şarj edilecek kWh">
-
-<button onclick="calculateCost()">
-⚡ Maliyeti Hesapla
-</button>
-
-<div
-id="costResult"
-class="result-box">
-
-Maliyet hesaplanmadı.
+📍 En Yakın İstasyon
 
 </div>
 
-</div>
-
-<div class="card">
-
-<h3>📍 En Yakın İstasyon</h3>
-
 <div
-id="nearestStation"
-class="result-box">
+class="result"
+id="nearestStation">
 
 Henüz aranmadı.
 
 </div>
 
 <button onclick="findNearestStation()">
-⚡ En Yakın İstasyonu Bul
+
+İstasyon Bul
+
 </button>
 
 <button onclick="goToStation()">
+
 🧭 İstasyona Git
+
 </button>
 
 </div>
@@ -381,14 +394,21 @@ Henüz aranmadı.
 
 <!-- HARİTA -->
 
-<div id="map" class="page">
+<div id="map"
+class="page">
 
 <div class="card">
 
-<h3>🗺 Harita</h3>
+<div class="card-title">
+
+🗺 Harita
+
+</div>
 
 <button onclick="findMe()">
+
 📍 Konumumu Bul
+
 </button>
 
 <div id="mapContainer"></div>
@@ -399,27 +419,66 @@ Henüz aranmadı.
 
 <!-- İSTASYONLAR -->
 
-<div id="stations" class="page">
+<div id="stations"
+class="page">
 
-<div class="card">
+<div class="station-card">
 
-<h3>⚡ Şarj Ağları</h3>
+<div class="station-name">
+⚡ ADZE Charge
+</div>
 
-<div class="station">⚡ Trugo DC - 150 kW - 🟢 Müsait</div>
+<div class="station-info">
+120 kW • 2.1 km • 🟢 Müsait
+</div>
 
-<div class="station">⚡ ZES DC - 120 kW - 🟢 Müsait</div>
+</div>
 
-<div class="station">⚡ Eşarj Ultra - 180 kW - 🟡 Yoğun</div>
+<div class="station-card">
 
-<div class="station">⚡ Voltrun - 90 kW - 🟢 Müsait</div>
+<div class="station-name">
+⚡ Trugo
+</div>
 
-<div class="station">⚡ ADZE Charge - 120 kW - 🟢 Müsait</div>
+<div class="station-info">
+150 kW • 1.2 km • 🟢 Müsait
+</div>
 
-<div class="station">⚡ Sharz.net - 60 kW - 🟢 Müsait</div>
+</div>
 
-<div class="station">⚡ Beefull - 180 kW - 🟡 Yoğun</div>
+<div class="station-card">
 
-<div class="station">⚡ WAT Mobilite - 120 kW - 🟢 Müsait</div>
+<div class="station-name">
+⚡ ZES
+</div>
+
+<div class="station-info">
+120 kW • 2.8 km • 🟢 Müsait
+</div>
+
+</div>
+
+<div class="station-card">
+
+<div class="station-name">
+⚡ Eşarj
+</div>
+
+<div class="station-info">
+180 kW • 🟡 Yoğun
+</div>
+
+</div>
+
+<div class="station-card">
+
+<div class="station-name">
+⚡ Voltrun
+</div>
+
+<div class="station-info">
+90 kW • 🟢 Müsait
+</div>
 
 </div>
 
@@ -427,47 +486,59 @@ Henüz aranmadı.
 
 <!-- PROFİL -->
 
-<div id="profile" class="page">
+<div id="profile"
+class="page">
 
 <div class="card">
 
-<h3>👤 Profil</h3>
+<div class="card-title">
 
-<p id="profileName">
-Kullanıcı
-</p>
+👤 Profil
 
-<br>
+</div>
 
-<p>
-Premium: Kapalı
-</p>
-
-<br>
-
-<p>
-Sürüm: V10
-</p>
+<div id="profileName">
+Misafir Kullanıcı
+</div>
 
 </div>
 
 <div class="card">
 
-<h3>⚡ Şarj Geçmişi</h3>
+<div class="card-title">
 
-<p>
-05.06.2026 - Trugo - 42 kWh - 315 TL
-</p>
-
-<br>
-
-<p>
-03.06.2026 - ADZE Charge - 28 kWh - 210 TL
-</p>
+⚡ Şarj Geçmişi
 
 </div>
 
-</div><!-- ALT MENÜ -->
+<div class="result">
+
+05.06.2026
+<br>
+ADZE Charge
+<br>
+28 kWh
+<br>
+210 TL
+
+</div>
+
+<div class="result">
+
+03.06.2026
+<br>
+Trugo
+<br>
+42 kWh
+<br>
+315 TL
+
+</div>
+
+</div>
+
+</div>
+<!-- ALT MENÜ -->
 
 <div class="bottom-nav">
 
@@ -497,12 +568,12 @@ Profil
 
 </div>
 
+</div>
+
 <script>
 
 let mapLoaded = false;
 let erotaMap;
-
-let garage = ["Togg T10X"];
 
 function login(){
 
@@ -516,7 +587,7 @@ document.getElementById(
 
 const email =
 document.getElementById(
-"loginEmail"
+"email"
 ).value;
 
 if(email){
@@ -533,7 +604,7 @@ email;
 function showRegister(){
 
 document.getElementById(
-"registerCard"
+"registerArea"
 ).style.display="block";
 
 }
@@ -545,7 +616,7 @@ alert(
 );
 
 document.getElementById(
-"registerCard"
+"registerArea"
 ).style.display="none";
 
 }
@@ -646,26 +717,6 @@ erotaMap.setView(
 
 }
 
-function addVehicle(){
-
-const vehicle =
-document.getElementById(
-"garageVehicle"
-).value;
-
-if(!garage.includes(vehicle)){
-
-garage.push(vehicle);
-
-document.getElementById(
-"garageList"
-).innerHTML =
-garage.join("<br><br>");
-
-}
-
-}
-
 function updateBattery(){
 
 const value =
@@ -676,18 +727,48 @@ document.getElementById(
 document.getElementById(
 "batteryText"
 ).innerHTML =
-"🔋 Batarya: %" +
+
+"Batarya: %" +
 value;
+
+let maxRange = 523;
+
+const vehicle =
+document.getElementById(
+"vehicleSelect"
+).value;
+
+if(vehicle==="Tesla Model Y"){
+maxRange = 533;
+}
+
+if(vehicle==="BYD Seal"){
+maxRange = 570;
+}
+
+if(vehicle==="Kia EV6"){
+maxRange = 528;
+}
 
 const range =
 Math.round(
-523 * value / 100
+(maxRange * value)/100
 );
 
 document.getElementById(
 "rangeText"
 ).innerHTML =
-range + " km";
+
+"Tahmini Menzil: " +
+range +
+" km";
+
+document.getElementById(
+"selectedVehicle"
+).innerHTML =
+
+"🚗 Seçili Araç: " +
+vehicle;
 
 }
 
@@ -706,7 +787,7 @@ document.getElementById(
 if(start==="" || end===""){
 
 alert(
-"Başlangıç ve varış giriniz"
+"Başlangıç ve varış noktası giriniz."
 );
 
 return;
@@ -724,39 +805,7 @@ end +
 
 "<br><br>" +
 
-"⚡ Yol üzerinde şarj önerildi.";
-
-}
-
-function calculateCost(){
-
-const kwh =
-Number(
-document.getElementById(
-"kwhInput"
-).value
-);
-
-if(!kwh){
-
-alert(
-"kWh giriniz"
-);
-
-return;
-
-}
-
-const total =
-(kwh * 7.5).toFixed(2);
-
-document.getElementById(
-"costResult"
-).innerHTML =
-
-"💰 Tahmini maliyet: " +
-total +
-" TL";
+"⚡ Yol üzerinde ADZE Charge ve Trugo önerildi.";
 
 }
 
@@ -790,12 +839,16 @@ window.open(
 
 }
 
+document.getElementById(
+"vehicleSelect"
+).addEventListener(
+"change",
+updateBattery
+);
+
 updateBattery();
 
 </script>
 
-</div>
-
 </body>
 </html>
-class="page active">
