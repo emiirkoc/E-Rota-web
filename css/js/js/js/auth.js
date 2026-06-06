@@ -1,3 +1,4 @@
+console.log("AUTH ÇALIŞTI");
 import { auth } from "./firebase.js";
 
 import {
