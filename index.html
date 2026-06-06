@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Rota V2</title>
+
+<title>E-Rota V3</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -16,26 +18,31 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 body{
 background:#08111f;
 color:white;
-padding-bottom:90px;
+padding-bottom:80px;
 }
 
 .header{
-padding:25px;
-font-size:28px;
-font-weight:700;
+padding:20px;
 text-align:center;
+font-size:28px;
+font-weight:bold;
 color:#42d66b;
+}
+
+.page{
+display:none;
+padding:15px;
+}
+
+.page.active{
+display:block;
 }
 
 .card{
 background:#13233b;
-margin:15px;
 padding:18px;
+margin-bottom:15px;
 border-radius:18px;
-}
-
-.card h3{
-margin-bottom:10px;
 }
 
 .station{
@@ -47,16 +54,14 @@ border-bottom:1px solid rgba(255,255,255,.08);
 border:none;
 }
 
-.button{
-display:block;
-background:#42d66b;
-color:#000;
-padding:15px;
-text-align:center;
-border-radius:15px;
-font-weight:bold;
-text-decoration:none;
-margin-top:10px;
+.map{
+height:300px;
+background:#0f1c30;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
 }
 
 .bottom-nav{
@@ -73,21 +78,37 @@ border-top:1px solid rgba(255,255,255,.08);
 }
 
 .nav-item{
+cursor:pointer;
 text-align:center;
 font-size:13px;
 color:#ccc;
 }
 
-.active{
+.nav-item.active{
 color:#42d66b;
 font-weight:bold;
 }
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#42d66b;
+font-weight:bold;
+margin-top:10px;
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="header">⚡ E-Rota</div>
+
+<!-- ANA SAYFA -->
+
+<div id="home" class="page active">
 
 <div class="card">
 <h3>Merhaba Emirhan 👋</h3>
@@ -101,45 +122,116 @@ font-weight:bold;
 </div>
 
 <div class="card">
-<h3>⚡ Yakındaki İstasyonlar</h3>
+<h3>🚗 Araç</h3>
+<p>Togg T10X</p>
+</div>
+
+</div>
+
+<!-- HARİTA -->
+
+<div id="map" class="page">
+
+<div class="card">
+<h3>🗺 Harita</h3>
+
+<div class="map">
+Harita V4'te gelecek
+</div>
+
+</div>
+
+</div>
+
+<!-- İSTASYONLAR -->
+
+<div id="stations" class="page">
+
+<div class="card">
+
+<h3>⚡ Şarj İstasyonları</h3>
 
 <div class="station">Trugo DC - 150 kW</div>
 <div class="station">ZES DC - 120 kW</div>
 <div class="station">Eşarj Ultra - 180 kW</div>
+<div class="station">Voltrun - 90 kW</div>
 
-<a href="#" class="button">
-🗺 Rota Planla
-</a>
 </div>
 
+</div>
+
+<!-- PROFİL -->
+
+<div id="profile" class="page">
+
 <div class="card">
+
 <h3>👤 Profil</h3>
-<p>Premium Üyelik: Kapalı</p>
+
+<p>Kullanıcı: Emirhan</p>
+<p>Premium: Kapalı</p>
+
+<button>
+Premium'a Geç
+</button>
+
+</div>
+
 </div>
 
 <div class="bottom-nav">
 
-<div class="nav-item active">
+<div class="nav-item active"
+onclick="showPage('home',this)">
 🏠<br>
 Ana Sayfa
 </div>
 
-<div class="nav-item">
+<div class="nav-item"
+onclick="showPage('map',this)">
 🗺<br>
 Harita
 </div>
 
-<div class="nav-item">
+<div class="nav-item"
+onclick="showPage('stations',this)">
 ⚡<br>
 İstasyonlar
 </div>
 
-<div class="nav-item">
+<div class="nav-item"
+onclick="showPage('profile',this)">
 👤<br>
 Profil
 </div>
 
 </div>
+
+<script>
+
+function showPage(pageId,element){
+
+document
+.querySelectorAll('.page')
+.forEach(page=>{
+page.classList.remove('active');
+});
+
+document
+.querySelectorAll('.nav-item')
+.forEach(item=>{
+item.classList.remove('active');
+});
+
+document
+.getElementById(pageId)
+.classList.add('active');
+
+element.classList.add('active');
+
+}
+
+</script>
 
 </body>
 </html>
