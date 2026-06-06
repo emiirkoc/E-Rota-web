@@ -1,5 +1,4 @@
-console.log("AUTH DOSYASI YÜKLENDİ");
-alert("AUTH DOSYASI YÜKLENDİ");
+console.log("AUTH ÇALIŞTI");
 import { auth } from "./firebase.js";
 
 import {
