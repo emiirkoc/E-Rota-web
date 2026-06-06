@@ -1,18 +1,17 @@
-console.log("MAP DOSYASI ÇALIŞTI");
+console.log("MAP ÇALIŞTI");
 
-window.onload = function () {
-
-const haritaAlani =
-document.getElementById("mapContainer");
-
-console.log(haritaAlani);
-
-if (!haritaAlani) {
-    alert("mapContainer bulunamadı");
-    return;
-}
-
-haritaAlani.innerHTML =
-"<div style='padding:20px;color:red;font-weight:bold'>HARİTA TEST BAŞARILI</div>";
-
-};
+document.getElementById("mapContainer").innerHTML = `
+<div style="
+height:500px;
+background:#e8f5e9;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:bold;
+color:green;
+border-radius:20px;
+">
+HARİTA TEST BAŞARILI
+</div>
+`;
