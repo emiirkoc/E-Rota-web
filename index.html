@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota V12</title>
+<title>E-Rota V13 Premium</title>
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -23,8 +23,8 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
-background:#f4f7fb;
-color:#1d1d1f;
+background:#f5f7fb;
+color:#111827;
 }
 
 .login-screen{
@@ -39,22 +39,41 @@ padding:20px;
 background:white;
 width:100%;
 max-width:420px;
-padding:25px;
-border-radius:28px;
-box-shadow:0 8px 30px rgba(0,0,0,.08);
+padding:30px;
+border-radius:30px;
+box-shadow:0 10px 35px rgba(0,0,0,.08);
 }
 
 .logo{
-font-size:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+font-size:34px;
 font-weight:700;
-text-align:center;
 color:#00b36b;
+margin-bottom:10px;
+}
+
+.logo-icon{
+width:50px;
+height:50px;
+border-radius:15px;
+background:linear-gradient(
+135deg,
+#00b36b,
+#0099ff
+);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+color:white;
 }
 
 .subtitle{
 text-align:center;
-color:#666;
-margin-top:8px;
+color:#6b7280;
 margin-bottom:25px;
 }
 
@@ -62,23 +81,22 @@ input,
 select{
 width:100%;
 padding:14px;
+border:1px solid #dbe2ea;
 border-radius:14px;
-border:1px solid #ddd;
 margin-top:10px;
 font-size:15px;
-background:white;
 }
 
 button{
 width:100%;
 padding:14px;
-margin-top:10px;
 border:none;
 border-radius:14px;
-background:#00b36b;
-color:white;
+margin-top:10px;
 font-weight:700;
 cursor:pointer;
+background:#00b36b;
+color:white;
 }
 
 .app{
@@ -89,17 +107,17 @@ padding-bottom:90px;
 .topbar{
 background:white;
 padding:15px;
-box-shadow:0 2px 12px rgba(0,0,0,.05);
 position:sticky;
 top:0;
-z-index:100;
+z-index:999;
+box-shadow:0 2px 15px rgba(0,0,0,.05);
 }
 
 .search{
 width:100%;
 padding:14px;
 border-radius:14px;
-border:1px solid #ddd;
+border:1px solid #dbe2ea;
 }
 
 .page{
@@ -113,10 +131,10 @@ display:block;
 
 .card{
 background:white;
-padding:18px;
 border-radius:24px;
+padding:18px;
 margin-bottom:15px;
-box-shadow:0 4px 16px rgba(0,0,0,.06);
+box-shadow:0 4px 18px rgba(0,0,0,.05);
 }
 
 .card-title{
@@ -125,8 +143,17 @@ font-weight:700;
 margin-bottom:10px;
 }
 
+.hero-card{
+background:linear-gradient(
+135deg,
+#00b36b,
+#0099ff
+);
+color:white;
+}
+
 .result{
-background:#f1f4f7;
+background:#f2f5f8;
 padding:12px;
 border-radius:14px;
 margin-top:10px;
@@ -137,7 +164,7 @@ background:white;
 padding:18px;
 border-radius:20px;
 margin-bottom:12px;
-box-shadow:0 4px 12px rgba(0,0,0,.05);
+box-shadow:0 4px 14px rgba(0,0,0,.05);
 }
 
 .station-name{
@@ -147,20 +174,11 @@ font-weight:700;
 
 .station-info{
 margin-top:8px;
-color:#666;
-}
-
-.partner-card{
-background:linear-gradient(
-135deg,
-#00b36b,
-#0099ff
-);
-color:white;
+color:#6b7280;
 }
 
 #mapContainer{
-height:450px;
+height:500px;
 border-radius:24px;
 overflow:hidden;
 margin-top:10px;
@@ -176,7 +194,7 @@ background:white;
 display:flex;
 justify-content:space-around;
 align-items:center;
-box-shadow:0 -2px 12px rgba(0,0,0,.08);
+box-shadow:0 -2px 15px rgba(0,0,0,.08);
 }
 
 .nav-item{
@@ -199,18 +217,25 @@ font-weight:700;
 
 <!-- LOGIN -->
 
-<div
-id="loginScreen"
+<div id="loginScreen"
 class="login-screen">
 
 <div class="login-card">
 
 <div class="logo">
-⚡ E-Rota
+
+<div class="logo-icon">
+⚡
+</div>
+
+E-Rota
+
 </div>
 
 <div class="subtitle">
+
 Elektrikli yolculukların akıllı rotası
+
 </div>
 
 <input
@@ -223,11 +248,15 @@ type="password"
 placeholder="Şifre">
 
 <button onclick="login()">
+
 Giriş Yap
+
 </button>
 
 <button onclick="showRegister()">
+
 Kayıt Ol
+
 </button>
 
 <div
@@ -239,7 +268,9 @@ id="name"
 placeholder="Ad Soyad">
 
 <button onclick="registerUser()">
+
 Hesap Oluştur
+
 </button>
 
 </div>
@@ -250,8 +281,7 @@ Hesap Oluştur
 
 <!-- APP -->
 
-<div
-id="app"
+<div id="app"
 class="app">
 
 <div class="topbar">
@@ -265,41 +295,45 @@ placeholder="İstasyon veya adres ara...">
 <div
 id="home"
 class="page active">
-  <!-- ADZE CHARGE PARTNER -->
+  <!-- HERO -->
 
-<div class="card partner-card">
+<div class="card hero-card">
 
 <div class="card-title">
+
 ⚡ ADZE Charge Partner
+
 </div>
 
-Türkiye'nin yeni nesil hızlı şarj deneyimi.
+Türkiye'nin yeni nesil hızlı şarj ağı.
 
 <br><br>
 
-120 kW DC Şarj
+🔋 120 kW DC Şarj
 
 <br>
 
-7/24 Hizmet
+📍 Türkiye Geneli Yayılım
 
 <br>
 
-CCS2 Destekli
+🕒 7/24 Hizmet
 
 </div>
 
-<!-- ÖZET KART -->
+<!-- YOLCULUK ÖZETİ -->
 
 <div class="card">
 
 <div class="card-title">
+
 🚗 Yolculuk Özeti
+
 </div>
 
 <div class="result">
 
-🚗 Araç:
+🚘 Araç:
 <span id="selectedVehicle">
 Togg T10X
 </span>
@@ -317,7 +351,7 @@ Togg T10X
 
 <div class="result">
 
-📏 Menzil:
+📏 Tahmini Menzil:
 <span id="rangeText">
 355 km
 </span>
@@ -331,41 +365,28 @@ Togg T10X
 <div class="card">
 
 <div class="card-title">
+
 🚘 Araç Garajım
+
 </div>
 
 <select id="vehicleSelect">
 
 <option>Togg T10X</option>
-
 <option>Tesla Model Y</option>
-
 <option>Tesla Model 3</option>
-
 <option>BYD Seal</option>
-
 <option>BYD Atto 3</option>
-
 <option>Kia EV6</option>
-
 <option>Kia EV9</option>
-
 <option>Hyundai Ioniq 5</option>
-
 <option>Hyundai Ioniq 6</option>
-
 <option>BMW i4</option>
-
 <option>BMW iX</option>
-
 <option>Mercedes EQE</option>
-
 <option>Mercedes EQS</option>
-
 <option>Audi Q8 e-tron</option>
-
 <option>Volvo EX30</option>
-
 <option>MG4 Electric</option>
 
 </select>
@@ -377,7 +398,9 @@ Togg T10X
 <div class="card">
 
 <div class="card-title">
+
 🔋 Batarya Durumu
+
 </div>
 
 <input
@@ -387,7 +410,8 @@ min="0"
 max="100"
 value="68">
 
-<div class="result"
+<div
+class="result"
 id="batteryText">
 
 Batarya: %68
@@ -401,16 +425,18 @@ Batarya: %68
 <div class="card">
 
 <div class="card-title">
+
 🗺️ Rota Planlama
+
 </div>
 
 <input
 id="startPoint"
-placeholder="Başlangıç">
+placeholder="Başlangıç Noktası">
 
 <input
 id="endPoint"
-placeholder="Varış">
+placeholder="Varış Noktası">
 
 <button onclick="planRoute()">
 
@@ -428,33 +454,65 @@ Henüz rota oluşturulmadı.
 
 </div>
 
-<!-- EN YAKIN İSTASYON -->
+<!-- YAKIN İSTASYONLAR -->
 
 <div class="card">
 
 <div class="card-title">
-📍 En Yakın İstasyon
+
+📍 Yakındaki İstasyonlar
+
 </div>
 
-<div
-class="result"
-id="nearestStation">
+<div class="station-card">
 
-Henüz aranmadı.
+<div class="station-name">
+⚡ ADZE Charge
+</div>
+
+<div class="station-info">
+120 kW • 2.1 km • 🟢 Müsait
+</div>
+
+</div>
+
+<div class="station-card">
+
+<div class="station-name">
+⚡ Trugo
+</div>
+
+<div class="station-info">
+150 kW • 1.2 km • 🟢 Müsait
+</div>
+
+</div>
+
+<div class="station-card">
+
+<div class="station-name">
+⚡ ZES
+</div>
+
+<div class="station-info">
+120 kW • 2.8 km • 🟡 Yoğun
+</div>
 
 </div>
 
 <button onclick="findNearestStation()">
 
-⚡ İstasyon Bul
+⚡ En Yakın İstasyonu Bul
 
 </button>
 
-<button onclick="goToStation()">
+<div
+id="nearestStation"
+class="result">
 
-🧭 Yol Tarifi Al
+Henüz aranmadı.
 
-</button>
+</div>
 
 </div>
 
@@ -469,7 +527,9 @@ class="page">
 <div class="card">
 
 <div class="card-title">
+
 🗺 Harita
+
 </div>
 
 <button onclick="findMe()">
@@ -547,9 +607,23 @@ class="page">
 </div>
 
 <div class="station-info">
-🟡 Yoğun
-<br>
 180 kW
+<br>
+🟡 Yoğun
+</div>
+
+</div>
+
+<div class="station-card">
+
+<div class="station-name">
+⚡ Voltrun
+</div>
+
+<div class="station-info">
+90 kW
+<br>
+🟢 Müsait
 </div>
 
 </div>
@@ -565,7 +639,9 @@ class="page">
 <div class="card">
 
 <div class="card-title">
+
 👤 Profil
+
 </div>
 
 <div id="profileName">
@@ -579,23 +655,19 @@ Misafir Kullanıcı
 <div class="card">
 
 <div class="card-title">
+
 ⚡ Şarj Geçmişi
+
 </div>
 
 <div class="result">
 
 05.06.2026
-
 <br>
-
 ADZE Charge
-
 <br>
-
 28 kWh
-
 <br>
-
 210 TL
 
 </div>
@@ -603,17 +675,11 @@ ADZE Charge
 <div class="result">
 
 03.06.2026
-
 <br>
-
 Trugo
-
 <br>
-
 42 kWh
-
 <br>
-
 315 TL
 
 </div>
@@ -623,10 +689,12 @@ Trugo
 <div class="card">
 
 <div class="card-title">
-📱 Uygulama
+
+📱 Uygulama Bilgisi
+
 </div>
 
-E-Rota V12 Demo
+E-Rota V13 Premium
 
 <br><br>
 
@@ -695,25 +763,15 @@ const vehicleRanges = {
 
 function login(){
 
-document.getElementById(
-"loginScreen"
-).style.display="none";
-
-document.getElementById(
-"app"
-).style.display="block";
+document.getElementById("loginScreen").style.display="none";
+document.getElementById("app").style.display="block";
 
 const email =
-document.getElementById(
-"email"
-).value;
+document.getElementById("email").value;
 
 if(email){
 
-document.getElementById(
-"profileName"
-).innerHTML =
-email;
+document.getElementById("profileName").innerHTML=email;
 
 }
 
@@ -721,21 +779,17 @@ email;
 
 function showRegister(){
 
-document.getElementById(
-"registerArea"
-).style.display="block";
+document.getElementById("registerArea")
+.style.display="block";
 
 }
 
 function registerUser(){
 
-alert(
-"Hesap oluşturuldu."
-);
+alert("Hesap oluşturuldu.");
 
-document.getElementById(
-"registerArea"
-).style.display="none";
+document.getElementById("registerArea")
+.style.display="none";
 
 }
 
@@ -772,31 +826,37 @@ erotaMap=L.map('mapContainer')
 .setView([41.0082,28.9784],11);
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
 {
-attribution:'© OpenStreetMap'
+attribution:'© OpenStreetMap © CARTO'
 }
 ).addTo(erotaMap);
 
-L.marker([41.0082,28.9784])
-.addTo(erotaMap)
-.bindPopup('⚡ Trugo');
+const stations = [
 
-L.marker([41.055,29.021])
-.addTo(erotaMap)
-.bindPopup('⚡ ADZE Charge');
+["ADZE Charge",41.055,29.021],
+["Trugo",41.0082,28.9784],
+["ZES",41.01,29.08],
+["Eşarj",41.03,29.03],
+["Voltrun",41.07,29.04],
+["Sharz.net",41.09,29.01],
+["Beefull",41.02,29.11],
+["WAT Mobilite",41.06,29.06]
 
-L.marker([41.01,29.08])
-.addTo(erotaMap)
-.bindPopup('⚡ ZES');
+];
 
-L.marker([41.03,29.03])
-.addTo(erotaMap)
-.bindPopup('⚡ Eşarj');
+stations.forEach(station=>{
 
-L.marker([41.07,29.04])
+L.marker([
+station[1],
+station[2]
+])
 .addTo(erotaMap)
-.bindPopup('⚡ Voltrun');
+.bindPopup(
+"⚡ " + station[0]
+);
+
+});
 
 }
 
@@ -804,13 +864,16 @@ function findMe(){
 
 if(!navigator.geolocation){
 
-alert("Konum desteklenmiyor");
+alert(
+"Konum desteklenmiyor."
+);
 
 return;
 
 }
 
-navigator.geolocation.getCurrentPosition(
+navigator.geolocation
+.getCurrentPosition(
 
 function(position){
 
@@ -827,7 +890,7 @@ L.marker([lat,lng])
 
 erotaMap.setView(
 [lat,lng],
-14
+13
 );
 
 }
@@ -912,7 +975,7 @@ document.getElementById(
 
 "<br><br>" +
 
-"📏 Tahmini Mesafe: 320 km" +
+"📏 Mesafe: 320 km" +
 
 "<br>" +
 
@@ -943,14 +1006,6 @@ document.getElementById(
 "<br>" +
 
 "🟢 Müsait";
-
-}
-
-function goToStation(){
-
-window.open(
-"https://maps.apple.com/?q=ADZE%20Charge"
-);
 
 }
 
