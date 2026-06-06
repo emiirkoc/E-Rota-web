@@ -5,9 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota V7</title>
+<title>E-Rota V8</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
@@ -28,7 +30,7 @@ padding-bottom:90px;
 .header{
 padding:20px;
 text-align:center;
-font-size:32px;
+font-size:38px;
 font-weight:700;
 color:#42d66b;
 }
@@ -71,7 +73,9 @@ margin-top:10px;
 border:none;
 border-radius:14px;
 background:#42d66b;
+color:#08111f;
 font-weight:bold;
+font-size:15px;
 cursor:pointer;
 }
 
@@ -83,7 +87,7 @@ margin-top:10px;
 }
 
 .station{
-padding:12px 0;
+padding:14px 0;
 border-bottom:1px solid rgba(255,255,255,.08);
 }
 
@@ -149,17 +153,35 @@ Elektrikli yolculukların akıllı rotası.
 
 <div class="card">
 
-<h3>🚗 Araç Seçimi</h3>
+<h3>🚗 Araç Garajım</h3>
 
-<select id="vehicleSelect">
+<div id="garageList">
+
+Togg T10X ⭐
+
+</div>
+
+<select id="garageVehicle">
 
 <option>Togg T10X</option>
 <option>Tesla Model Y</option>
+<option>Tesla Model 3</option>
 <option>BYD Seal</option>
+<option>BYD Atto 3</option>
 <option>Kia EV6</option>
+<option>Kia EV9</option>
 <option>Hyundai Ioniq 5</option>
+<option>Hyundai Ioniq 6</option>
+<option>BMW i4</option>
+<option>BMW iX</option>
+<option>Mercedes EQE</option>
+<option>Mercedes EQS</option>
 
 </select>
+
+<button onclick="addVehicle()">
+➕ Aracı Garaja Ekle
+</button>
 
 </div>
 
@@ -179,7 +201,9 @@ oninput="updateBattery()">
 
 <div class="result-box">
 
-🚗 Tahmini menzil:
+🚗 Tahmini Menzil
+
+<br><br>
 
 <span id="rangeText">
 355 km
@@ -187,7 +211,19 @@ oninput="updateBattery()">
 
 </div>
 
-</div><div class="card">
+<div class="result-box">
+
+⚡ Ortalama Tüketim
+
+<br><br>
+
+16 kWh / 100 km
+
+</div>
+
+</div>
+
+<div class="card">
 
 <h3>🗺️ Rota Planlama</h3>
 
@@ -252,11 +288,9 @@ Henüz aranmadı.
 ⚡ En Yakın İstasyonu Bul
 </button>
 
-</div>
+</div></div>
 
-</div>
-
-<!-- HARİTA SAYFASI -->
+<!-- HARİTA -->
 
 <div id="map" class="page">
 
@@ -269,6 +303,24 @@ Henüz aranmadı.
 </button>
 
 <div id="mapContainer"></div>
+
+<div class="result-box">
+
+📍 Yakındaki İstasyonlar
+
+<br><br>
+
+⚡ Trugo DC - 1.2 km
+
+<br>
+
+⚡ ADZE Charge - 2.1 km
+
+<br>
+
+⚡ ZES DC - 2.8 km
+
+</div>
 
 </div>
 
@@ -283,31 +335,115 @@ Henüz aranmadı.
 <h3>⚡ Şarj İstasyonları</h3>
 
 <div class="station">
-⚡ Trugo DC - 150 kW
-<button onclick="addFavorite('Trugo DC')">
-⭐ Favorilere Ekle
-</button>
+
+⚡ Trugo DC
+
+<br>
+
+150 kW
+
+<br>
+
+🟢 Müsait
+
 </div>
 
 <div class="station">
-⚡ ZES DC - 120 kW
-<button onclick="addFavorite('ZES DC')">
-⭐ Favorilere Ekle
-</button>
+
+⚡ ZES DC
+
+<br>
+
+120 kW
+
+<br>
+
+🟢 Müsait
+
 </div>
 
 <div class="station">
-⚡ Eşarj Ultra - 180 kW
-<button onclick="addFavorite('Eşarj Ultra')">
-⭐ Favorilere Ekle
-</button>
+
+⚡ Eşarj Ultra
+
+<br>
+
+180 kW
+
+<br>
+
+🟡 Yoğun
+
 </div>
 
 <div class="station">
-⚡ Voltrun - 90 kW
-<button onclick="addFavorite('Voltrun')">
-⭐ Favorilere Ekle
-</button>
+
+⚡ Voltrun
+
+<br>
+
+90 kW
+
+<br>
+
+🟢 Müsait
+
+</div>
+
+<div class="station">
+
+⚡ ADZE Charge
+
+<br>
+
+120 kW
+
+<br>
+
+🟢 Müsait
+
+</div>
+
+<div class="station">
+
+⚡ Sharz.net
+
+<br>
+
+60 kW
+
+<br>
+
+🟢 Müsait
+
+</div>
+
+<div class="station">
+
+⚡ Beefull
+
+<br>
+
+180 kW
+
+<br>
+
+🟡 Yoğun
+
+</div>
+
+<div class="station">
+
+⚡ WAT Mobilite
+
+<br>
+
+120 kW
+
+<br>
+
+🟢 Müsait
+
 </div>
 
 </div>
@@ -322,12 +458,26 @@ Henüz aranmadı.
 
 <h3>👤 Profil</h3>
 
-<p>Kullanıcı: Emirhan</p>
+<p>
+Kullanıcı: Emirhan
+</p>
 
-<p>Premium: Kapalı</p>
+<br>
+
+<p>
+Premium: Kapalı
+</p>
+
+<br>
+
+<p>
+Uygulama Sürümü: V8
+</p>
 
 <button>
+
 ⭐ Premium'a Geç
+
 </button>
 
 </div>
@@ -366,6 +516,8 @@ Profil
 
 let mapLoaded = false;
 let erotaMap;
+
+let garage = ["Togg T10X"];
 
 function showPage(pageId, element){
 
@@ -407,15 +559,19 @@ attribution:'© OpenStreetMap'
 
 L.marker([41.0082,28.9784])
 .addTo(erotaMap)
-.bindPopup('📍 İstanbul');
+.bindPopup('⚡ Trugo DC');
 
 L.marker([41.055,29.021])
 .addTo(erotaMap)
-.bindPopup('⚡ Trugo');
+.bindPopup('⚡ ADZE Charge');
 
 L.marker([41.01,29.08])
 .addTo(erotaMap)
-.bindPopup('⚡ ZES');
+.bindPopup('⚡ ZES DC');
+
+L.marker([41.03,29.03])
+.addTo(erotaMap)
+.bindPopup('⚡ Eşarj Ultra');
 
 }
 
@@ -427,6 +583,7 @@ return;
 }
 
 navigator.geolocation.getCurrentPosition(
+
 function(position){
 
 const lat =
@@ -440,13 +597,34 @@ L.marker([lat,lng])
 .bindPopup("🚗 Konumunuz")
 .openPopup();
 
-erotaMap.setView([lat,lng],14);
-
-},
-function(){
-alert("Konum alınamadı");
-}
+erotaMap.setView(
+[lat,lng],
+14
 );
+
+}
+
+);
+
+}
+
+function addVehicle(){
+
+const vehicle =
+document.getElementById(
+"garageVehicle"
+).value;
+
+if(!garage.includes(vehicle)){
+
+garage.push(vehicle);
+
+document.getElementById(
+"garageList"
+).innerHTML =
+garage.join("<br><br>");
+
+}
 
 }
 
@@ -455,38 +633,21 @@ function updateBattery(){
 const value =
 document.getElementById("battery").value;
 
-document.getElementById("batteryText")
-.innerHTML =
+document.getElementById(
+"batteryText"
+).innerHTML =
 "🔋 Batarya: %" + value;
 
 let maxRange = 523;
 
-const vehicle =
-document.getElementById("vehicleSelect").value;
-
-if(vehicle==="Tesla Model Y"){
-maxRange = 533;
-}
-
-if(vehicle==="BYD Seal"){
-maxRange = 570;
-}
-
-if(vehicle==="Kia EV6"){
-maxRange = 528;
-}
-
-if(vehicle==="Hyundai Ioniq 5"){
-maxRange = 507;
-}
-
 const range =
 Math.round(
-(maxRange * value) / 100
+(maxRange * value)/100
 );
 
-document.getElementById("rangeText")
-.innerHTML =
+document.getElementById(
+"rangeText"
+).innerHTML =
 range + " km";
 
 }
@@ -494,24 +655,35 @@ range + " km";
 function planRoute(){
 
 const start =
-document.getElementById("startPoint").value;
+document.getElementById(
+"startPoint"
+).value;
 
 const end =
-document.getElementById("endPoint").value;
+document.getElementById(
+"endPoint"
+).value;
 
 if(start==="" || end===""){
 
-alert("Başlangıç ve varış giriniz");
+alert(
+"Başlangıç ve varış giriniz"
+);
 
 return;
 
 }
 
-document.getElementById("routeResult")
-.innerHTML =
-"🚗 " + start +
-" ➜ " + end +
-"<br><br>⚡ Önerilen rota oluşturuldu.";
+document.getElementById(
+"routeResult"
+).innerHTML =
+
+"🚗 " +
+start +
+" ➜ " +
+end +
+
+"<br><br>⚡ Rota oluşturuldu.";
 
 }
 
@@ -519,7 +691,9 @@ function calculateCost(){
 
 const kwh =
 Number(
-document.getElementById("kwhInput").value
+document.getElementById(
+"kwhInput"
+).value
 );
 
 if(!kwh){
@@ -533,8 +707,10 @@ return;
 const total =
 (kwh * 7.5).toFixed(2);
 
-document.getElementById("costResult")
-.innerHTML =
+document.getElementById(
+"costResult"
+).innerHTML =
+
 "💰 Tahmini maliyet: " +
 total +
 " TL";
@@ -543,65 +719,13 @@ total +
 
 function findNearestStation(){
 
-const stations = [
-
-{
-name:"⚡ Trugo DC",
-distance:1.2
-},
-
-{
-name:"⚡ ZES DC",
-distance:2.5
-},
-
-{
-name:"⚡ Eşarj Ultra",
-distance:3.1
-},
-
-{
-name:"⚡ Voltrun",
-distance:4.8
-}
-
-];
-
-let nearest = stations[0];
-
-for(let i=1;i<stations.length;i++){
-
-if(
-stations[i].distance <
-nearest.distance
-){
-
-nearest = stations[i];
-
-}
-
-}
-
 document.getElementById(
 "nearestStation"
 ).innerHTML =
 
-"<b>" +
-nearest.name +
-"</b><br>" +
-
-"📏 Mesafe: " +
-nearest.distance +
-" km";
-
-}
-
-function addFavorite(name){
-
-alert(
-name +
-" favorilere eklendi."
-);
+"⚡ Trugo DC<br><br>" +
+"📏 1.2 km<br><br>" +
+"🔋 150 kW";
 
 }
 
