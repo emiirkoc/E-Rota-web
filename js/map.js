@@ -1,17 +1,44 @@
-console.log("MAP ÇALIŞTI");
+console.log("MAP BAŞLADI");
 
-document.getElementById("mapContainer").innerHTML = `
-<div style="
-height:500px;
-background:#e8f5e9;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-font-weight:bold;
-color:green;
-border-radius:20px;
-">
-HARİTA TEST BAŞARILI
-</div>
-`;
+window.addEventListener("load", () => {
+
+    if (typeof L === "undefined") {
+        document.getElementById("mapContainer").innerHTML =
+        "<div style='padding:20px;color:red'>Leaflet yüklenemedi.</div>";
+        return;
+    }
+
+    const map = L.map("mapContainer").setView(
+        [41.0082, 28.9784],
+        11
+    );
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution: "© OpenStreetMap"
+        }
+    ).addTo(map);
+
+    const stations = [
+        ["ADZE Charge", 41.055, 29.021],
+        ["Trugo", 41.0082, 28.9784],
+        ["ZES", 41.02, 29.10],
+        ["Eşarj", 41.03, 29.03],
+        ["Voltrun", 41.06, 29.05]
+    ];
+
+    stations.forEach(station => {
+
+        L.marker([
+            station[1],
+            station[2]
+        ])
+        .addTo(map)
+        .bindPopup(
+            "⚡ " + station[0]
+        );
+
+    });
+
+});
