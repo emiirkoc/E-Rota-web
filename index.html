@@ -281,7 +281,15 @@ Maliyet hesaplanmadı.
 </div>
 
 <div class="station">
-⚡ Eşarj Ultra – 180 kW
+⚡ Trugo DC – 150 kW
+
+<button
+onclick="addFavorite('Trugo')">
+
+⭐ Favorilere Ekle
+
+</button>
+
 </div>
 
 <div class="station">
@@ -447,8 +455,31 @@ document.getElementById("batteryText")
 .innerHTML =
 "🔋 Batarya: %" + value;
 
+let maxRange = 523;
+
+const vehicle =
+document.getElementById("vehicleSelect").value;
+
+if(vehicle==="Tesla Model Y"){
+maxRange = 533;
+}
+
+if(vehicle==="BYD Seal"){
+maxRange = 570;
+}
+
+if(vehicle==="Kia EV6"){
+maxRange = 528;
+}
+
+if(vehicle==="Hyundai Ioniq 5"){
+maxRange = 507;
+}
+
 const range =
-Math.round(value * 4);
+Math.round(
+(maxRange * value) / 100
+);
 
 document.getElementById("rangeText")
 .innerHTML =
@@ -509,6 +540,58 @@ total +
 }
 
 </script>
+  function addFavorite(name){
 
+alert(
+name +
+" favorilere eklendi."
+);
+
+}
+function findNearestStation(){
+
+const stations = [
+
+"⚡ Trugo - 1.2 km",
+
+"⚡ ZES - 2.5 km",
+
+"⚡ Eşarj - 3.1 km",
+
+"⚡ Voltrun - 4.8 km"
+
+];
+
+const randomStation =
+stations[
+Math.floor(
+Math.random() *
+stations.length
+)
+];
+
+document.getElementById(
+"nearestStation"
+).innerHTML =
+randomStation;
+
+}
 </body>
 </html>
+<div class="card">
+
+<h3>📍 En Yakın İstasyon</h3>
+
+<div id="nearestStation">
+
+Konum bulunamadı.
+
+</div>
+
+<button onclick="findNearestStation()">
+
+⚡ İstasyon Bul
+
+</button>
+
+</div>
