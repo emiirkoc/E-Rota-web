@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota V3</title>
+<title>E-Rota V4</title>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
 
 *{
@@ -19,7 +21,7 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 body{
 background:#08111f;
 color:white;
-padding-bottom:80px;
+padding-bottom:85px;
 }
 
 .header{
@@ -42,8 +44,8 @@ display:block;
 .card{
 background:#13233b;
 padding:18px;
-margin-bottom:15px;
 border-radius:18px;
+margin-bottom:15px;
 }
 
 .station{
@@ -55,7 +57,7 @@ border-bottom:1px solid rgba(255,255,255,.08);
 border:none;
 }
 
-.map{
+#mapContainer{
 height:400px;
 border-radius:18px;
 overflow:hidden;
@@ -66,7 +68,7 @@ position:fixed;
 bottom:0;
 left:0;
 width:100%;
-height:70px;
+height:75px;
 background:#0f1c30;
 display:flex;
 justify-content:space-around;
@@ -78,7 +80,7 @@ border-top:1px solid rgba(255,255,255,.08);
 cursor:pointer;
 text-align:center;
 font-size:13px;
-color:#ccc;
+color:#bbb;
 }
 
 .nav-item.active{
@@ -93,7 +95,6 @@ border:none;
 border-radius:14px;
 background:#42d66b;
 font-weight:bold;
-margin-top:10px;
 }
 
 </style>
@@ -131,9 +132,7 @@ margin-top:10px;
 
 <div class="card">
 <h3>🗺 Harita</h3>
-
-<div id="mapContainer" class="map"></div>
-
+<div id="mapContainer"></div>
 </div>
 
 </div>
@@ -166,6 +165,8 @@ margin-top:10px;
 <p>Kullanıcı: Emirhan</p>
 <p>Premium: Kapalı</p>
 
+<br>
+
 <button>
 Premium'a Geç
 </button>
@@ -174,75 +175,85 @@ Premium'a Geç
 
 </div>
 
+<!-- ALT MENÜ -->
+
 <div class="bottom-nav">
+
+<div class="nav-item active" onclick="showPage('home', this)">
+🏠<br>
+Ana Sayfa
+</div>
+
+<div class="nav-item" onclick="showPage('map', this)">
+🗺<br>
+Harita
+</div>
+
+<div class="nav-item" onclick="showPage('stations', this)">
+⚡<br>
+İstasyonlar
+</div>
+
+<div class="nav-item" onclick="showPage('profile', this)">
+👤<br>
+Profil
+</div>
+
+</div>
 
 <script>
 
-function showPage(pageId, element) {
+let mapLoaded = false;
 
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
+function showPage(pageId, element){
 
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.classList.remove('active');
-  });
+document.querySelectorAll('.page').forEach(page=>{
+page.classList.remove('active');
+});
 
-  document.getElementById(pageId).classList.add('active');
-  element.classList.add('active');
+document.querySelectorAll('.nav-item').forEach(item=>{
+item.classList.remove('active');
+});
 
-  if(pageId === 'map'){
-    setTimeout(initMap, 100);
-  }
+document.getElementById(pageId).classList.add('active');
+
+element.classList.add('active');
+
+if(pageId === 'map'){
+setTimeout(loadMap,100);
+}
 
 }
 
-let mapLoaded = false;
+function loadMap(){
 
-function initMap() {
+if(mapLoaded) return;
 
-  if(mapLoaded) return;
+mapLoaded = true;
 
-  mapLoaded = true;
+const map = L.map('mapContainer').setView(
+[41.0082, 28.9784],
+11
+);
 
-  const map = L.map('mapContainer').setView(
-    [41.0082, 28.9784],
-    11
-  );
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'© OpenStreetMap'
+}
+).addTo(map);
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '© OpenStreetMap'
-    }
-  ).addTo(map);
+L.marker([41.0082,28.9784])
+.addTo(map)
+.bindPopup('📍 İstanbul');
 
-  L.marker([41.0082, 28.9784])
-    .addTo(map)
-    .bindPopup('📍 İstanbul Merkez');
+L.marker([41.055,29.021])
+.addTo(map)
+.bindPopup('⚡ Trugo');
 
-  L.marker([41.055, 29.021])
-    .addTo(map)
-    .bindPopup('⚡ Trugo DC');
-
-  L.marker([41.01, 29.08])
-    .addTo(map)
-    .bindPopup('⚡ ZES');
-
-  if (navigator.geolocation) {
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-
-      L.marker([
-        position.coords.latitude,
-        position.coords.longitude
-      ])
-      .addTo(map)
-      .bindPopup('🚗 Konumunuz');
-
-    });
-
-  }
+L.marker([41.01,29.08])
+.addTo(map)
+.bindPopup('⚡ ZES');
 
 }
 
