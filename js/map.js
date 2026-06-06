@@ -1,5 +1,18 @@
-console.log("MAP BAŞLADI");
+console.log("MAP DOSYASI ÇALIŞTI");
 
-console.log(
-document.getElementById("mapContainer")
-);
+window.onload = function () {
+
+const haritaAlani =
+document.getElementById("mapContainer");
+
+console.log(haritaAlani);
+
+if (!haritaAlani) {
+    alert("mapContainer bulunamadı");
+    return;
+}
+
+haritaAlani.innerHTML =
+"<div style='padding:20px;color:red;font-weight:bold'>HARİTA TEST BAŞARILI</div>";
+
+};
