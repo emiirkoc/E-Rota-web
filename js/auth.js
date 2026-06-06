@@ -13,7 +13,7 @@ const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 
-// Kayıt Ol
+// KAYIT OL
 registerBtn.addEventListener("click", async () => {
 
     const email = emailInput.value.trim();
@@ -38,15 +38,13 @@ registerBtn.addEventListener("click", async () => {
 
         console.error(error);
 
-        alert(
-            "Hata: " + error.message
-        );
+        alert("Hata: " + error.message);
 
     }
 
 });
 
-// Giriş Yap
+// GİRİŞ YAP
 loginBtn.addEventListener("click", async () => {
 
     const email = emailInput.value.trim();
@@ -71,33 +69,32 @@ loginBtn.addEventListener("click", async () => {
 
         console.error(error);
 
-        alert(
-            "Giriş başarısız: " + error.message
-        );
+        alert("Giriş başarısız: " + error.message);
 
     }
 
 });
 
-// Kullanıcı giriş yaptıysa
+// OTURUM TAKİBİ
 onAuthStateChanged(auth, (user) => {
 
-    if (user) {
+    if (!user) return;
 
-        document.querySelector("main").innerHTML = `
-            <section class="card">
-                <h2>👋 Hoş Geldin</h2>
-                <p>${user.email}</p>
+    document.querySelector("main").innerHTML = `
+        <section class="card">
+            <h2>👋 Hoş Geldin</h2>
 
-                <br>
+            <p><strong>${user.email}</strong></p>
 
-                <button id="logoutBtn">
-                    Çıkış Yap
-                </button>
-            </section>
-        `;
+            <br>
 
-        document
+            <button id="logoutBtn">
+                Çıkış Yap
+            </button>
+        </section>
+    `;
+
+    document
         .getElementById("logoutBtn")
         .addEventListener("click", async () => {
 
@@ -106,7 +103,5 @@ onAuthStateChanged(auth, (user) => {
             location.reload();
 
         });
-
-    }
 
 });
