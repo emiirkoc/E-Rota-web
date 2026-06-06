@@ -1,6 +1,6 @@
 console.log("AUTH ÇALIŞTI");
-import { auth } from "./firebase.js";
 
+import { auth } from "./firebase.js";
 import {
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword
