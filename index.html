@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota V4</title>
+<title>E-Rota V5</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -21,14 +21,14 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 body{
 background:#08111f;
 color:white;
-padding-bottom:85px;
+padding-bottom:90px;
 }
 
 .header{
 padding:20px;
 text-align:center;
-font-size:28px;
-font-weight:bold;
+font-size:30px;
+font-weight:700;
 color:#42d66b;
 }
 
@@ -48,6 +48,13 @@ border-radius:18px;
 margin-bottom:15px;
 }
 
+#mapContainer{
+height:400px;
+border-radius:18px;
+overflow:hidden;
+margin-top:10px;
+}
+
 .station{
 padding:12px 0;
 border-bottom:1px solid rgba(255,255,255,.08);
@@ -57,10 +64,23 @@ border-bottom:1px solid rgba(255,255,255,.08);
 border:none;
 }
 
-#mapContainer{
-height:400px;
-border-radius:18px;
-overflow:hidden;
+input,select{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#42d66b;
+font-weight:bold;
+margin-top:10px;
+cursor:pointer;
 }
 
 .bottom-nav{
@@ -77,23 +97,14 @@ border-top:1px solid rgba(255,255,255,.08);
 }
 
 .nav-item{
-cursor:pointer;
 text-align:center;
 font-size:13px;
 color:#bbb;
+cursor:pointer;
 }
 
 .nav-item.active{
 color:#42d66b;
-font-weight:bold;
-}
-
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#42d66b;
 font-weight:bold;
 }
 
@@ -114,14 +125,27 @@ font-weight:bold;
 </div>
 
 <div class="card">
-<h3>🔋 Batarya</h3>
-<p>%68</p>
-<p>Tahmini menzil: 268 km</p>
-</div>
+<h3>🚗 Araç Seç</h3>
 
-<div class="card">
-<h3>🚗 Araç</h3>
-<p>Togg T10X</p>
+<select id="vehicleSelect">
+<option>Togg T10X</option>
+<option>Tesla Model Y</option>
+<option>BYD Seal</option>
+<option>Kia EV6</option>
+</select>
+
+<br><br>
+
+<h3 id="batteryText">🔋 Batarya: %68</h3>
+
+<input
+id="battery"
+type="range"
+min="0"
+max="100"
+value="68"
+oninput="updateBattery()">
+
 </div>
 
 </div>
@@ -131,8 +155,15 @@ font-weight:bold;
 <div id="map" class="page">
 
 <div class="card">
+
 <h3>🗺 Harita</h3>
+
+<button onclick="findMe()">
+📍 Konumumu Bul
+</button>
+
 <div id="mapContainer"></div>
+
 </div>
 
 </div>
@@ -145,10 +176,10 @@ font-weight:bold;
 
 <h3>⚡ Şarj İstasyonları</h3>
 
-<div class="station">Trugo DC - 150 kW</div>
-<div class="station">ZES DC - 120 kW</div>
-<div class="station">Eşarj Ultra - 180 kW</div>
-<div class="station">Voltrun - 90 kW</div>
+<div class="station">⚡ Trugo DC - 150 kW</div>
+<div class="station">⚡ ZES DC - 120 kW</div>
+<div class="station">⚡ Eşarj Ultra - 180 kW</div>
+<div class="station">⚡ Voltrun - 90 kW</div>
 
 </div>
 
@@ -165,8 +196,6 @@ font-weight:bold;
 <p>Kullanıcı: Emirhan</p>
 <p>Premium: Kapalı</p>
 
-<br>
-
 <button>
 Premium'a Geç
 </button>
@@ -179,22 +208,22 @@ Premium'a Geç
 
 <div class="bottom-nav">
 
-<div class="nav-item active" onclick="showPage('home', this)">
+<div class="nav-item active" onclick="showPage('home',this)">
 🏠<br>
 Ana Sayfa
 </div>
 
-<div class="nav-item" onclick="showPage('map', this)">
+<div class="nav-item" onclick="showPage('map',this)">
 🗺<br>
 Harita
 </div>
 
-<div class="nav-item" onclick="showPage('stations', this)">
+<div class="nav-item" onclick="showPage('stations',this)">
 ⚡<br>
 İstasyonlar
 </div>
 
-<div class="nav-item" onclick="showPage('profile', this)">
+<div class="nav-item" onclick="showPage('profile',this)">
 👤<br>
 Profil
 </div>
@@ -203,9 +232,10 @@ Profil
 
 <script>
 
-let mapLoaded = false;
+let mapLoaded=false;
+let erotaMap;
 
-function showPage(pageId, element){
+function showPage(pageId,element){
 
 document.querySelectorAll('.page').forEach(page=>{
 page.classList.remove('active');
@@ -216,10 +246,9 @@ item.classList.remove('active');
 });
 
 document.getElementById(pageId).classList.add('active');
-
 element.classList.add('active');
 
-if(pageId === 'map'){
+if(pageId==="map"){
 setTimeout(loadMap,100);
 }
 
@@ -229,10 +258,10 @@ function loadMap(){
 
 if(mapLoaded) return;
 
-mapLoaded = true;
+mapLoaded=true;
 
-const map = L.map('mapContainer').setView(
-[41.0082, 28.9784],
+erotaMap=L.map('mapContainer').setView(
+[41.0082,28.9784],
 11
 );
 
@@ -241,19 +270,58 @@ L.tileLayer(
 {
 attribution:'© OpenStreetMap'
 }
-).addTo(map);
+).addTo(erotaMap);
 
 L.marker([41.0082,28.9784])
-.addTo(map)
+.addTo(erotaMap)
 .bindPopup('📍 İstanbul');
 
 L.marker([41.055,29.021])
-.addTo(map)
+.addTo(erotaMap)
 .bindPopup('⚡ Trugo');
 
 L.marker([41.01,29.08])
-.addTo(map)
+.addTo(erotaMap)
 .bindPopup('⚡ ZES');
+
+}
+
+function updateBattery(){
+
+const value=
+document.getElementById("battery").value;
+
+document.getElementById("batteryText")
+.innerHTML=
+"🔋 Batarya: %"+value;
+
+}
+
+function findMe(){
+
+if(!navigator.geolocation){
+alert("Konum desteklenmiyor");
+return;
+}
+
+navigator.geolocation.getCurrentPosition(
+function(position){
+
+const lat=position.coords.latitude;
+const lng=position.coords.longitude;
+
+L.marker([lat,lng])
+.addTo(erotaMap)
+.bindPopup("🚗 Konumunuz")
+.openPopup();
+
+erotaMap.setView([lat,lng],14);
+
+},
+function(){
+alert("Konum alınamadı");
+}
+);
 
 }
 
