@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota V13 Premium</title>
+<title>E-Rota V14 Final</title>
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -27,38 +27,24 @@ background:#f5f7fb;
 color:#111827;
 }
 
-.login-screen{
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+.app{
+padding-bottom:90px;
+}
+
+/* LOGO */
+
+.logo-area{
 padding:20px;
-}
-
-.login-card{
+text-align:center;
 background:white;
-width:100%;
-max-width:420px;
-padding:30px;
-border-radius:30px;
-box-shadow:0 10px 35px rgba(0,0,0,.08);
+box-shadow:0 2px 15px rgba(0,0,0,.05);
 }
 
-.logo{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-font-size:34px;
-font-weight:700;
-color:#00b36b;
-margin-bottom:10px;
-}
-
-.logo-icon{
-width:50px;
-height:50px;
-border-radius:15px;
+.logo-box{
+width:80px;
+height:80px;
+margin:auto;
+border-radius:24px;
 background:linear-gradient(
 135deg,
 #00b36b,
@@ -67,58 +53,25 @@ background:linear-gradient(
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
+font-size:38px;
 color:white;
+font-weight:bold;
 }
 
-.subtitle{
-text-align:center;
-color:#6b7280;
-margin-bottom:25px;
-}
-
-input,
-select{
-width:100%;
-padding:14px;
-border:1px solid #dbe2ea;
-border-radius:14px;
-margin-top:10px;
-font-size:15px;
-}
-
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-margin-top:10px;
+.logo-title{
+font-size:30px;
 font-weight:700;
-cursor:pointer;
-background:#00b36b;
-color:white;
+margin-top:12px;
+color:#111827;
 }
 
-.app{
-display:none;
-padding-bottom:90px;
+.logo-sub{
+font-size:14px;
+color:#6b7280;
+margin-top:5px;
 }
 
-.topbar{
-background:white;
-padding:15px;
-position:sticky;
-top:0;
-z-index:999;
-box-shadow:0 2px 15px rgba(0,0,0,.05);
-}
-
-.search{
-width:100%;
-padding:14px;
-border-radius:14px;
-border:1px solid #dbe2ea;
-}
+/* SAYFA */
 
 .page{
 display:none;
@@ -131,16 +84,10 @@ display:block;
 
 .card{
 background:white;
-border-radius:24px;
 padding:18px;
+border-radius:24px;
 margin-bottom:15px;
 box-shadow:0 4px 18px rgba(0,0,0,.05);
-}
-
-.card-title{
-font-size:18px;
-font-weight:700;
-margin-bottom:10px;
 }
 
 .hero-card{
@@ -150,6 +97,12 @@ background:linear-gradient(
 #0099ff
 );
 color:white;
+}
+
+.card-title{
+font-size:18px;
+font-weight:700;
+margin-bottom:10px;
 }
 
 .result{
@@ -164,7 +117,7 @@ background:white;
 padding:18px;
 border-radius:20px;
 margin-bottom:12px;
-box-shadow:0 4px 14px rgba(0,0,0,.05);
+box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
 
 .station-name{
@@ -177,12 +130,39 @@ margin-top:8px;
 color:#6b7280;
 }
 
+/* FORM */
+
+input,
+select{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #dbe2ea;
+margin-top:10px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#00b36b;
+color:white;
+font-weight:700;
+margin-top:10px;
+cursor:pointer;
+}
+
+/* HARİTA */
+
 #mapContainer{
 height:500px;
 border-radius:24px;
 overflow:hidden;
 margin-top:10px;
 }
+
+/* ALT MENÜ */
 
 .bottom-nav{
 position:fixed;
@@ -215,94 +195,35 @@ font-weight:700;
 
 <body>
 
-<!-- LOGIN -->
+<!-- LOGO -->
 
-<div id="loginScreen"
-class="login-screen">
+<div class="logo-area">
 
-<div class="login-card">
-
-<div class="logo">
-
-<div class="logo-icon">
-⚡
+<div class="logo-box">
+⚡📍
 </div>
 
+<div class="logo-title">
 E-Rota
-
 </div>
 
-<div class="subtitle">
-
-Elektrikli yolculukların akıllı rotası
-
-</div>
-
-<input
-id="email"
-placeholder="E-Posta">
-
-<input
-id="password"
-type="password"
-placeholder="Şifre">
-
-<button onclick="login()">
-
-Giriş Yap
-
-</button>
-
-<button onclick="showRegister()">
-
-Kayıt Ol
-
-</button>
-
-<div
-id="registerArea"
-style="display:none;">
-
-<input
-id="name"
-placeholder="Ad Soyad">
-
-<button onclick="registerUser()">
-
-Hesap Oluştur
-
-</button>
-
-</div>
-
+<div class="logo-sub">
+Elektrikli Yolculukların Akıllı Rotası
 </div>
 
 </div>
 
 <!-- APP -->
 
-<div id="app"
-class="app">
+<div class="app">
 
-<div class="topbar">
-
-<input
-class="search"
-placeholder="İstasyon veya adres ara...">
-
-</div>
-
-<div
-id="home"
-class="page active">
-  <!-- HERO -->
+<div id="home" class="page active">
+  <!-- ADZE CHARGE -->
 
 <div class="card hero-card">
 
 <div class="card-title">
-
 ⚡ ADZE Charge Partner
-
 </div>
 
 Türkiye'nin yeni nesil hızlı şarj ağı.
@@ -313,7 +234,7 @@ Türkiye'nin yeni nesil hızlı şarj ağı.
 
 <br>
 
-📍 Türkiye Geneli Yayılım
+📍 Türkiye Geneli
 
 <br>
 
@@ -326,36 +247,28 @@ Türkiye'nin yeni nesil hızlı şarj ağı.
 <div class="card">
 
 <div class="card-title">
-
 🚗 Yolculuk Özeti
-
 </div>
 
 <div class="result">
-
 🚘 Araç:
 <span id="selectedVehicle">
 Togg T10X
 </span>
-
 </div>
 
 <div class="result">
-
 🔋 Batarya:
 <span id="batteryPercent">
-68
+80
 </span>%
-
 </div>
 
 <div class="result">
-
 📏 Tahmini Menzil:
 <span id="rangeText">
-355 km
+418 km
 </span>
-
 </div>
 
 </div>
@@ -365,9 +278,7 @@ Togg T10X
 <div class="card">
 
 <div class="card-title">
-
 🚘 Araç Garajım
-
 </div>
 
 <select id="vehicleSelect">
@@ -378,7 +289,6 @@ Togg T10X
 <option>BYD Seal</option>
 <option>BYD Atto 3</option>
 <option>Kia EV6</option>
-<option>Kia EV9</option>
 <option>Hyundai Ioniq 5</option>
 <option>Hyundai Ioniq 6</option>
 <option>BMW i4</option>
@@ -398,9 +308,7 @@ Togg T10X
 <div class="card">
 
 <div class="card-title">
-
 🔋 Batarya Durumu
-
 </div>
 
 <input
@@ -408,13 +316,13 @@ id="battery"
 type="range"
 min="0"
 max="100"
-value="68">
+value="80">
 
 <div
 class="result"
 id="batteryText">
 
-Batarya: %68
+Batarya: %80
 
 </div>
 
@@ -425,9 +333,7 @@ Batarya: %68
 <div class="card">
 
 <div class="card-title">
-
 🗺️ Rota Planlama
-
 </div>
 
 <input
@@ -439,9 +345,7 @@ id="endPoint"
 placeholder="Varış Noktası">
 
 <button onclick="planRoute()">
-
 🚗 Rota Oluştur
-
 </button>
 
 <div
@@ -454,56 +358,16 @@ Henüz rota oluşturulmadı.
 
 </div>
 
-<!-- YAKIN İSTASYONLAR -->
+<!-- EN YAKIN İSTASYON -->
 
 <div class="card">
 
 <div class="card-title">
-
-📍 Yakındaki İstasyonlar
-
-</div>
-
-<div class="station-card">
-
-<div class="station-name">
-⚡ ADZE Charge
-</div>
-
-<div class="station-info">
-120 kW • 2.1 km • 🟢 Müsait
-</div>
-
-</div>
-
-<div class="station-card">
-
-<div class="station-name">
-⚡ Trugo
-</div>
-
-<div class="station-info">
-150 kW • 1.2 km • 🟢 Müsait
-</div>
-
-</div>
-
-<div class="station-card">
-
-<div class="station-name">
-⚡ ZES
-</div>
-
-<div class="station-info">
-120 kW • 2.8 km • 🟡 Yoğun
-</div>
-
+📍 En Yakın İstasyon
 </div>
 
 <button onclick="findNearestStation()">
-
 ⚡ En Yakın İstasyonu Bul
-
 </button>
 
 <div
@@ -520,22 +384,16 @@ Henüz aranmadı.
 
 <!-- HARİTA -->
 
-<div
-id="map"
-class="page">
+<div id="map" class="page">
 
 <div class="card">
 
 <div class="card-title">
-
 🗺 Harita
-
 </div>
 
 <button onclick="findMe()">
-
 📍 Konumumu Bul
-
 </button>
 
 <div id="mapContainer"></div>
@@ -546,9 +404,7 @@ class="page">
 
 <!-- İSTASYONLAR -->
 
-<div
-id="stations"
-class="page">
+<div id="stations" class="page">
 
 <div class="station-card">
 
@@ -607,9 +463,9 @@ class="page">
 </div>
 
 <div class="station-info">
-180 kW
-<br>
 🟡 Yoğun
+<br>
+180 kW
 </div>
 
 </div>
@@ -621,9 +477,9 @@ class="page">
 </div>
 
 <div class="station-info">
-90 kW
-<br>
 🟢 Müsait
+<br>
+90 kW
 </div>
 
 </div>
@@ -632,69 +488,39 @@ class="page">
 
 <!-- PROFİL -->
 
-<div
-id="profile"
-class="page">
+<div id="profile" class="page">
 
 <div class="card">
 
 <div class="card-title">
-
 👤 Profil
-
 </div>
 
-<div id="profileName">
+<h3>Emirhan Koç</h3>
 
-Misafir Kullanıcı
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="card-title">
-
-⚡ Şarj Geçmişi
-
-</div>
-
-<div class="result">
-
-05.06.2026
 <br>
+
+🚗 Araç Sayısı: 1
+
+<br><br>
+
+⚡ Toplam Şarj:
+70 kWh
+
+<br><br>
+
+📍 Son İstasyon:
 ADZE Charge
-<br>
-28 kWh
-<br>
-210 TL
-
-</div>
-
-<div class="result">
-
-03.06.2026
-<br>
-Trugo
-<br>
-42 kWh
-<br>
-315 TL
-
-</div>
 
 </div>
 
 <div class="card">
 
 <div class="card-title">
-
-📱 Uygulama Bilgisi
-
+📱 Uygulama
 </div>
 
-E-Rota V13 Premium
+E-Rota V14 Final
 
 <br><br>
 
@@ -737,10 +563,10 @@ Profil
 
 <script>
 
-let mapLoaded = false;
+let mapLoaded=false;
 let erotaMap;
 
-const vehicleRanges = {
+const vehicleRanges={
 
 "Togg T10X":523,
 "Tesla Model Y":533,
@@ -748,7 +574,6 @@ const vehicleRanges = {
 "BYD Seal":570,
 "BYD Atto 3":420,
 "Kia EV6":528,
-"Kia EV9":505,
 "Hyundai Ioniq 5":507,
 "Hyundai Ioniq 6":614,
 "BMW i4":590,
@@ -761,47 +586,13 @@ const vehicleRanges = {
 
 };
 
-function login(){
-
-document.getElementById("loginScreen").style.display="none";
-document.getElementById("app").style.display="block";
-
-const email =
-document.getElementById("email").value;
-
-if(email){
-
-document.getElementById("profileName").innerHTML=email;
-
-}
-
-}
-
-function showRegister(){
-
-document.getElementById("registerArea")
-.style.display="block";
-
-}
-
-function registerUser(){
-
-alert("Hesap oluşturuldu.");
-
-document.getElementById("registerArea")
-.style.display="none";
-
-}
-
 function showPage(pageId,element){
 
-document.querySelectorAll('.page')
-.forEach(page=>{
+document.querySelectorAll('.page').forEach(page=>{
 page.classList.remove('active');
 });
 
-document.querySelectorAll('.nav-item')
-.forEach(item=>{
+document.querySelectorAll('.nav-item').forEach(item=>{
 item.classList.remove('active');
 });
 
@@ -832,16 +623,13 @@ attribution:'© OpenStreetMap © CARTO'
 }
 ).addTo(erotaMap);
 
-const stations = [
+const stations=[
 
 ["ADZE Charge",41.055,29.021],
 ["Trugo",41.0082,28.9784],
 ["ZES",41.01,29.08],
 ["Eşarj",41.03,29.03],
-["Voltrun",41.07,29.04],
-["Sharz.net",41.09,29.01],
-["Beefull",41.02,29.11],
-["WAT Mobilite",41.06,29.06]
+["Voltrun",41.07,29.04]
 
 ];
 
@@ -853,7 +641,11 @@ station[2]
 ])
 .addTo(erotaMap)
 .bindPopup(
-"⚡ " + station[0]
+`
+<b>⚡ ${station[0]}</b>
+<br>
+Şarj İstasyonu
+`
 );
 
 });
@@ -864,23 +656,20 @@ function findMe(){
 
 if(!navigator.geolocation){
 
-alert(
-"Konum desteklenmiyor."
-);
+alert("Konum desteklenmiyor");
 
 return;
 
 }
 
-navigator.geolocation
-.getCurrentPosition(
+navigator.geolocation.getCurrentPosition(
 
 function(position){
 
-const lat =
+const lat=
 position.coords.latitude;
 
-const lng =
+const lng=
 position.coords.longitude;
 
 L.marker([lat,lng])
@@ -888,10 +677,7 @@ L.marker([lat,lng])
 .bindPopup("🚗 Konumunuz")
 .openPopup();
 
-erotaMap.setView(
-[lat,lng],
-13
-);
+erotaMap.setView([lat,lng],13);
 
 }
 
@@ -901,54 +687,54 @@ erotaMap.setView(
 
 function updateBattery(){
 
-const vehicle =
+const vehicle=
 document.getElementById(
 "vehicleSelect"
 ).value;
 
-const battery =
+const battery=
 document.getElementById(
 "battery"
 ).value;
 
-const maxRange =
+const maxRange=
 vehicleRanges[vehicle];
 
-const range =
+const range=
 Math.round(
-(maxRange * battery)/100
+(maxRange*battery)/100
 );
 
 document.getElementById(
 "selectedVehicle"
-).innerHTML =
+).innerHTML=
 vehicle;
 
 document.getElementById(
 "batteryPercent"
-).innerHTML =
+).innerHTML=
 battery;
 
 document.getElementById(
 "batteryText"
-).innerHTML =
-"Batarya: %" + battery;
+).innerHTML=
+"Batarya: %"+battery;
 
 document.getElementById(
 "rangeText"
-).innerHTML =
-range + " km";
+).innerHTML=
+range+" km";
 
 }
 
 function planRoute(){
 
-const start =
+const start=
 document.getElementById(
 "startPoint"
 ).value;
 
-const end =
+const end=
 document.getElementById(
 "endPoint"
 ).value;
@@ -956,7 +742,7 @@ document.getElementById(
 if(start==="" || end===""){
 
 alert(
-"Başlangıç ve varış giriniz."
+"Başlangıç ve varış noktası giriniz."
 );
 
 return;
@@ -965,45 +751,52 @@ return;
 
 document.getElementById(
 "routeResult"
-).innerHTML =
+).innerHTML=
 
-"📍 " + start +
+"📍 "+start+
 
-"<br>⬇️<br>" +
+"<br>⬇️<br>"+
 
-"📍 " + end +
+"📍 "+end+
 
-"<br><br>" +
+"<br><br>"+
 
-"📏 Mesafe: 320 km" +
+"📏 Mesafe: 320 km"+
 
-"<br>" +
+"<br>"+
 
-"⏱ Süre: 4 saat 10 dk" +
+"⏱ Süre: 4 saat 10 dk"+
 
-"<br>" +
+"<br>"+
 
-"⚡ Önerilen Durak: ADZE Charge";
+"🔋 Tahmini Varış: %18"+
+
+"<br>"+
+
+"⚡ Şarj Molası: ADZE Charge";
 
 }
 
 function findNearestStation(){
 
+const box=
 document.getElementById(
 "nearestStation"
-).innerHTML =
+);
 
-"⚡ ADZE Charge" +
+box.innerHTML=
 
-"<br><br>" +
+"⚡ <b>ADZE Charge</b>"+
 
-"📏 2.1 km" +
+"<br><br>"+
 
-"<br>" +
+"📍 2.1 km"+
 
-"🔋 120 kW" +
+"<br>"+
 
-"<br>" +
+"🔋 120 kW"+
+
+"<br>"+
 
 "🟢 Müsait";
 
