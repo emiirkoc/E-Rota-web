@@ -176,192 +176,77 @@ Premium'a Geç
 
 <div class="bottom-nav">
 
-<div class="nav-item active"
-onclick="showPage('home',this)">
-🏠<br>
-Ana Sayfa
-</div>
-
-<div class="nav-item"
-onclick="showPage('map',this)">
-🗺<br>
-Harita
-</div>
-
-<div class="nav-item"
-onclick="showPage('stations',this)">
-⚡<br>
-İstasyonlar
-</div>
-
-<div class="nav-item"
-onclick="showPage('profile',this)">
-👤<br>
-Profil
-</div>
-
-</div>
-
 <script>
 
-function showPage(pageId,element){
+function showPage(pageId, element) {
 
-document
-.querySelectorAll('.page')
-.forEach(page=>{
-page.classList.remove('active');
-});
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
 
-document
-.querySelectorAll('.nav-item')
-.forEach(item=>{
-item.classList.remove('active');
-});
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
 
-document
-.getElementById(pageId)
-.classList.add('active');
+  document.getElementById(pageId).classList.add('active');
+  element.classList.add('active');
 
-element.classList.add('active');
+  if(pageId === 'map'){
+    setTimeout(initMap, 100);
+  }
 
 }
 
-<script>
+let mapLoaded = false;
 
-function showPage(pageId,element){
+function initMap() {
 
-document.querySelectorAll('.page').forEach(page=>{
-page.classList.remove('active');
-});
+  if(mapLoaded) return;
 
-document.querySelectorAll('.nav-item').forEach(item=>{
-item.classList.remove('active');
-});
+  mapLoaded = true;
 
-document.getElementById(pageId).classList.add('active');
-element.classList.add('active');
+  const map = L.map('mapContainer').setView(
+    [41.0082, 28.9784],
+    11
+  );
 
-setTimeout(initMap,100);
-}
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '© OpenStreetMap'
+    }
+  ).addTo(map);
 
-let mapLoaded=false;
+  L.marker([41.0082, 28.9784])
+    .addTo(map)
+    .bindPopup('📍 İstanbul Merkez');
 
-function initMap(){
+  L.marker([41.055, 29.021])
+    .addTo(map)
+    .bindPopup('⚡ Trugo DC');
 
-if(mapLoaded) return;
+  L.marker([41.01, 29.08])
+    .addTo(map)
+    .bindPopup('⚡ ZES');
 
-mapLoaded=true;
+  if (navigator.geolocation) {
 
-const map = L.map('mapContainer').setView(
-[41.0082,28.9784],
-11
-);
+    navigator.geolocation.getCurrentPosition(function(position) {
 
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-attribution:'E-Rota'
-}
-).addTo(map);
+      L.marker([
+        position.coords.latitude,
+        position.coords.longitude
+      ])
+      .addTo(map)
+      .bindPopup('🚗 Konumunuz');
 
-L.marker([41.0082,28.9784])
-.addTo(map)
-.bindPopup('📍 İstanbul Merkez');
+    });
 
-L.marker([41.055,29.021])
-.addTo(map)
-.bindPopup('⚡ Trugo DC');
-
-L.marker([41.01,29.08])
-.addTo(map)
-.bindPopup('⚡ ZES');
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(
-(position)=>{
-
-L.marker([
-position.coords.latitude,
-position.coords.longitude
-])
-.addTo(map)
-.bindPopup('🚗 Konumunuz');
-
-}
-);
-
-}
-
-}
-
-<script>
-
-function showPage(pageId,element){
-
-document.querySelectorAll('.page').forEach(page=>{
-page.classList.remove('active');
-});
-
-document.querySelectorAll('.nav-item').forEach(item=>{
-item.classList.remove('active');
-});
-
-document.getElementById(pageId).classList.add('active');
-element.classList.add('active');
-
-setTimeout(initMap,100);
-}
-
-let mapLoaded=false;
-
-function initMap(){
-
-if(mapLoaded) return;
-
-mapLoaded=true;
-
-const map = L.map('mapContainer').setView(
-[41.0082,28.9784],
-11
-);
-
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-attribution:'E-Rota'
-}
-).addTo(map);
-
-L.marker([41.0082,28.9784])
-.addTo(map)
-.bindPopup('📍 İstanbul Merkez');
-
-L.marker([41.055,29.021])
-.addTo(map)
-.bindPopup('⚡ Trugo DC');
-
-L.marker([41.01,29.08])
-.addTo(map)
-.bindPopup('⚡ ZES');
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(
-(position)=>{
-
-L.marker([
-position.coords.latitude,
-position.coords.longitude
-])
-.addTo(map)
-.bindPopup('🚗 Konumunuz');
-
-}
-);
-
-}
+  }
 
 }
 
 </script>
+
+</body>
+</html>
