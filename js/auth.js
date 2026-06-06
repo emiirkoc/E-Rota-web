@@ -11,7 +11,8 @@ document.getElementById("loginBtn");
 
 const registerBtn =
 document.getElementById("registerBtn");
-
+console.log(loginBtn);
+console.log(registerBtn);
 registerBtn.addEventListener(
 "click",
 async () => {
