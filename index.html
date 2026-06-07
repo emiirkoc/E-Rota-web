@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,6 @@
 href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-
 </head>
 
 <body>
@@ -24,11 +25,9 @@ href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <section id="homePage" class="page active">
 
 <div class="top-search">
-
 <input
 type="text"
 placeholder="Nereye gitmek istiyorsunuz?">
-
 </div>
 
 <div id="map"></div>
@@ -36,11 +35,8 @@ placeholder="Nereye gitmek istiyorsunuz?">
 <div class="route-card">
 
 <div class="route-top">
-
 <h2>4 sa 35 dk</h2>
-
 <span>356 km</span>
-
 </div>
 
 <p>
@@ -48,10 +44,8 @@ placeholder="Nereye gitmek istiyorsunuz?">
 </p>
 
 <div class="battery-box">
-
-Batarya varışta
+<span>Batarya varışta</span>
 <strong>%18</strong>
-
 </div>
 
 <button id="routeBtn">
@@ -63,19 +57,23 @@ Rotayı Başlat →
 <nav class="bottom-nav">
 
 <button class="nav-btn active" data-page="homePage">
-🏠
+<span>🏠</span>
+<small>Ana Sayfa</small>
 </button>
 
 <button class="nav-btn" data-page="routePage">
-🗺️
+<span>🗺️</span>
+<small>Rotalar</small>
 </button>
 
 <button class="nav-btn" data-page="stationsPage">
-⚡
+<span>⚡</span>
+<small>İstasyonlar</small>
 </button>
 
 <button class="nav-btn" data-page="profilePage">
-👤
+<span>👤</span>
+<small>Profil</small>
 </button>
 
 </nav>
@@ -112,7 +110,7 @@ Rota Oluştur
 
 <div class="content">
 
-<h2>İstasyonlar</h2>
+<h2>Yakındaki İstasyonlar</h2>
 
 <div id="stationsList"></div>
 
@@ -134,36 +132,6 @@ Rota Oluştur
 
 </section>
 
-<!-- ALT MENÜ -->
-
-<nav class="bottom-nav">
-
-<button
-class="nav-btn active"
-data-page="homePage">
-🏠
-</button>
-
-<button
-class="nav-btn"
-data-page="routePage">
-🗺️
-</button>
-
-<button
-class="nav-btn"
-data-page="stationsPage">
-⚡
-</button>
-
-<button
-class="nav-btn"
-data-page="profilePage">
-👤
-</button>
-
-</nav>
-
 </div>
 
 <script src="js/stations.js"></script>
@@ -172,3 +140,4 @@ data-page="profilePage">
 
 </body>
 </html>
+```
