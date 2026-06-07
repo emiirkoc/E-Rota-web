@@ -1,15 +1,13 @@
+```javascript
 console.log("MAP BAŞLADI");
 
 window.addEventListener("load", () => {
 
-const mapElement =
-document.getElementById("map");
+const mapElement = document.getElementById("map");
 
 if(!mapElement){
-
 console.error("Map bulunamadı");
 return;
-
 }
 
 const map = L.map("map").setView(
@@ -26,7 +24,7 @@ attribution:"© OpenStreetMap"
 }
 ).addTo(map);
 
-window.stations.forEach(station => {
+/* İSTASYONLAR */
 
 window.stations.forEach(station => {
 
@@ -43,6 +41,8 @@ station.lng
 `);
 
 });
+
+/* LİSTE */
 
 const list =
 document.getElementById("stationsList");
@@ -64,6 +64,8 @@ list.innerHTML += `
 
 }
 
+/* KONUM */
+
 if(navigator.geolocation){
 
 navigator.geolocation.getCurrentPosition(
@@ -84,3 +86,4 @@ position.coords.longitude
 }
 
 });
+```
