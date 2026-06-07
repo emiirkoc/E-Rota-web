@@ -1,6 +1,3 @@
-alert("YENİ AUTH YÜKLENDİ");
-console.log("YENİ AUTH YÜKLENDİ");
-
 import { auth } from "./firebase.js";
 
 import {
@@ -10,13 +7,15 @@ signOut,
 onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+console.log("AUTH YÜKLENDİ");
+
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 
-// KAYIT OL
+// Kayıt Ol
 registerBtn.addEventListener("click", async () => {
 
 ```
@@ -41,15 +40,14 @@ try {
 } catch (error) {
 
     console.error(error);
-
-    alert("Hata: " + error.message);
+    alert(error.message);
 
 }
 ```
 
 });
 
-// GİRİŞ YAP
+// Giriş Yap
 loginBtn.addEventListener("click", async () => {
 
 ```
@@ -74,142 +72,48 @@ try {
 } catch (error) {
 
     console.error(error);
-
-    alert("Giriş başarısız: " + error.message);
+    alert(error.message);
 
 }
 ```
 
 });
 
-// OTURUM TAKİBİ
+// Oturum Takibi
 onAuthStateChanged(auth, (user) => {
 
 ```
 if (!user) return;
 
 document.querySelector("main").innerHTML = `
+    <section class="card">
 
-<section class="card">
+        <h2>👋 Hoş Geldin</h2>
 
-    <h2>👋 Hoş Geldin</h2>
+        <p>${user.email}</p>
 
-    <p>${user.email}</p>
+        <br>
 
-</section>
+        <button id="logoutBtn">
+            Çıkış Yap
+        </button>
 
-<section class="card">
-
-    <h2>🚗 Araç Garajım</h2>
-
-    <select id="carSelect">
-        <option>Togg T10X</option>
-        <option>Tesla Model Y</option>
-        <option>BYD Seal</option>
-        <option>Hyundai Ioniq 5</option>
-    </select>
-
-</section>
-
-<section class="card">
-
-    <h2>🔋 Batarya Durumu</h2>
-
-    <input
-    type="range"
-    min="0"
-    max="100"
-    value="75"
-    id="batterySlider">
-
-    <p id="batteryText">
-    Batarya: %75
-    </p>
-
-</section>
-
-<section class="card">
-
-    <h2>⚡ Yakındaki İstasyonlar</h2>
-
-    <div>⚡ Trugo - 1.2 km</div>
-    <div>⚡ ZES - 2.4 km</div>
-    <div>⚡ Eşarj - 3.1 km</div>
-
-</section>
-
-<section class="card">
-
-    <h2>🗺️ Rota Oluştur</h2>
-
-    <input
-    id="startPoint"
-    placeholder="Başlangıç">
-
-    <input
-    id="endPoint"
-    placeholder="Varış">
-
-    <button id="routeBtn">
-    Rota Oluştur
-    </button>
-
-    <p id="routeResult"></p>
-
-</section>
-
-<section class="card">
-
-    <button id="logoutBtn">
-    🚪 Çıkış Yap
-    </button>
-
-</section>
-
+    </section>
 `;
 
-document
-.getElementById("batterySlider")
-.addEventListener("input", function(){
+const logoutBtn =
+document.getElementById("logoutBtn");
 
-    document.getElementById(
-    "batteryText"
-    ).innerText =
-    "Batarya: %" + this.value;
+logoutBtn.addEventListener(
+    "click",
+    async () => {
 
-});
+        await signOut(auth);
 
-document
-.getElementById("routeBtn")
-.addEventListener("click", () => {
+        location.reload();
 
-    const start =
-    document.getElementById(
-    "startPoint"
-    ).value;
-
-    const end =
-    document.getElementById(
-    "endPoint"
-    ).value;
-
-    document.getElementById(
-    "routeResult"
-    ).innerText =
-    start + " → " + end +
-    " rotası oluşturuldu.";
-
-});
-
-document
-.getElementById("logoutBtn")
-.addEventListener("click", async () => {
-
-    await signOut(auth);
-
-    location.reload();
-
-});
+    }
+);
 ```
 
 });
