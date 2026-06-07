@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,6 +14,7 @@
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 </head>
 
 <body>
@@ -21,16 +22,23 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <div class="app">
 
 <header class="topbar">
+
 <h1>E-Rota ⚡</h1>
+
 <p>Elektrikli yolculukların akıllı rotası</p>
+
 </header>
+
+<!-- ANA SAYFA -->
 
 <div id="homePage">
 
 <section class="search-box">
+
 <input
 type="text"
 placeholder="Nereye gitmek istiyorsunuz?">
+
 </section>
 
 <section class="stats">
@@ -50,41 +58,59 @@ placeholder="Nereye gitmek istiyorsunuz?">
 </section>
 
 <div class="station-card">
-<h3>⚡ Trugo</h3>
-<p>Doluluk: %80</p>
+
+<h3>⚡ En Yakın İstasyon</h3>
+
+<p>Trugo</p>
+
 <p>0.8 km uzaklıkta</p>
+
+<button>
+Detayları Gör
+</button>
+
+</div>
+
+<div class="station-card">
+
+<h3>🔋 Batarya Durumu</h3>
+
+<p>%76</p>
+
 </div>
 
 </div>
+
+<!-- HARİTA SAYFASI -->
 
 <div id="mapPage" style="display:none">
+
 <div id="map"></div>
+
 </div>
+
+<!-- İSTASYONLAR SAYFASI -->
 
 <div id="stationsPage" style="display:none">
 
-<div class="station-card">
-⚡ Trugo - %80
-</div>
+<h2 style="padding:15px">
+Yakındaki İstasyonlar
+</h2>
 
-<div class="station-card">
-⚡ ZES - %45
-</div>
-
-<div class="station-card">
-⚡ Eşarj - %60
-</div>
-
-<div class="station-card">
-⚡ Voltrun - %15
-</div>
+<div id="stationsList"></div>
 
 </div>
+
+<!-- PROFİL SAYFASI -->
 
 <div id="profilePage" style="display:none">
 
 <div class="station-card">
-👤 Emirhan Koç
+
+<h3>👤 Emirhan Koç</h3>
+
+<p>E-Rota Kullanıcısı</p>
+
 </div>
 
 <div class="station-card">
@@ -99,7 +125,13 @@ placeholder="Nereye gitmek istiyorsunuz?">
 ⚙️ Ayarlar
 </div>
 
+<div class="station-card">
+🚪 Çıkış Yap
 </div>
+
+</div>
+
+<!-- ALT MENÜ -->
 
 <nav class="bottom-nav">
 
@@ -127,5 +159,5 @@ placeholder="Nereye gitmek istiyorsunuz?">
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
-```
