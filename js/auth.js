@@ -7,15 +7,13 @@ signOut,
 onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-console.log("AUTH YÜKLENDİ");
-
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 
-// Kayıt Ol
+// KAYIT OL
 registerBtn.addEventListener("click", async () => {
 
 ```
@@ -23,7 +21,7 @@ const email = emailInput.value.trim();
 const password = passwordInput.value.trim();
 
 if (!email || !password) {
-    alert("E-posta ve şifre giriniz.");
+    alert("E-posta ve şifre giriniz");
     return;
 }
 
@@ -39,15 +37,15 @@ try {
 
 } catch (error) {
 
-    console.error(error);
     alert(error.message);
+    console.error(error);
 
 }
 ```
 
 });
 
-// Giriş Yap
+// GİRİŞ YAP
 loginBtn.addEventListener("click", async () => {
 
 ```
@@ -55,7 +53,7 @@ const email = emailInput.value.trim();
 const password = passwordInput.value.trim();
 
 if (!email || !password) {
-    alert("E-posta ve şifre giriniz.");
+    alert("E-posta ve şifre giriniz");
     return;
 }
 
@@ -71,36 +69,30 @@ try {
 
 } catch (error) {
 
-    console.error(error);
     alert(error.message);
+    console.error(error);
 
 }
 ```
 
 });
 
-// Oturum Takibi
+// OTURUM KONTROLÜ
 onAuthStateChanged(auth, (user) => {
 
 ```
 if (!user) return;
 
 document.querySelector("main").innerHTML = `
+    <section class="card">
+        <h2>👋 Hoş Geldin</h2>
 
-<section class="card">
+        <p>${user.email}</p>
 
-<h2>👋 Hoş Geldin</h2>
-
-<p>${user.email}</p>
-
-<br>
-
-<button id="logoutBtn">
-Çıkış Yap
-</button>
-
-</section>
-
+        <button id="logoutBtn">
+            Çıkış Yap
+        </button>
+    </section>
 `;
 
 const logoutBtn =
