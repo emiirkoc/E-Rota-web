@@ -1,39 +1,38 @@
-```javascript
 console.log("MAP BAŞLADI");
-
-window.map = null;
-window.userMarker = null;
 
 window.addEventListener("load", () => {
 
-const mapContainer =
+const mapElement =
 document.getElementById("map");
 
-if(!mapContainer){
+if(!mapElement){
 
 console.error("Map bulunamadı");
 return;
 
 }
 
-window.map = L.map("map");
+const map = L.map("map").setView(
+[41.0082, 28.9784],
+11
+);
+
+window.map = map;
 
 L.tileLayer(
 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 {
 attribution:"© OpenStreetMap"
 }
-).addTo(window.map);
-
-const markers = [];
+).addTo(map);
 
 window.stations.forEach(station => {
 
-const marker = L.marker([
+L.marker([
 station.lat,
 station.lng
 ])
-.addTo(window.map)
+.addTo(map)
 .bindPopup(`
 <b>${station.name}</b><br>
 📍 ${station.distance}<br>
@@ -41,41 +40,20 @@ station.lng
 💰 ${station.price}
 `);
 
-markers.push(marker);
-
 });
-
-const group =
-L.featureGroup(markers);
-
-window.map.fitBounds(
-group.getBounds(),
-{
-padding:[50,50]
-}
-);
-
-loadStations();
-loadUserLocation();
-
-});
-
-function loadStations(){
 
 const list =
 document.getElementById("stationsList");
 
-if(!list) return;
-
-list.innerHTML = "";
+if(list){
 
 window.stations.forEach(station => {
 
 list.innerHTML += `
 <div class="station-card">
-<h3>⚡ ${station.name}</h3>
+<h3>${station.name}</h3>
 <p>📍 ${station.distance}</p>
-<p>⚡ Doluluk: %${station.occupancy}</p>
+<p>⚡ %${station.occupancy}</p>
 <p>💰 ${station.price}</p>
 </div>
 `;
@@ -84,39 +62,23 @@ list.innerHTML += `
 
 }
 
-function loadUserLocation(){
-
-if(!navigator.geolocation){
-return;
-}
+if(navigator.geolocation){
 
 navigator.geolocation.getCurrentPosition(
 
 (position)=>{
 
-const lat =
-position.coords.latitude;
-
-const lng =
-position.coords.longitude;
-
-window.userMarker =
-L.marker([lat,lng])
-.addTo(window.map)
+L.marker([
+position.coords.latitude,
+position.coords.longitude
+])
+.addTo(map)
 .bindPopup("📍 Konumunuz");
 
-},
-
-(error)=>{
-
-console.log(
-"Konum alınamadı:",
-error.message
-);
-
 }
 
 );
 
 }
-```
+
+});
