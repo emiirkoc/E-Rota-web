@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -23,7 +24,9 @@ src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js">
 
 <div class="mobile-app">
 
-<!-- HARİTA SAYFASI -->
+<!-- ========================= -->
+<!-- ANA SAYFA -->
+<!-- ========================= -->
 
 <section id="homePage" class="page active">
 
@@ -61,10 +64,8 @@ placeholder="Nereye gitmek istiyorsunuz?">
 </p>
 
 <div class="battery-info">
-
 Batarya varışta:
 <strong>%18</strong>
-
 </div>
 
 <button class="start-route-btn">
@@ -75,7 +76,9 @@ Rotayı Başlat ➜
 
 </section>
 
-<!-- ROTA SAYFASI -->
+<!-- ========================= -->
+<!-- ROTA PLANLA -->
+<!-- ========================= -->
 
 <section id="routePage" class="page">
 
@@ -93,7 +96,7 @@ placeholder="Varış Noktası">
 
 <div class="battery-box">
 
-<p>Batarya %65</p>
+<p>Batarya Yüzdesi</p>
 
 <input
 type="range"
@@ -111,7 +114,9 @@ Rota Oluştur
 
 </section>
 
+<!-- ========================= -->
 <!-- İSTASYONLAR -->
+<!-- ========================= -->
 
 <section id="stationsPage" class="page">
 
@@ -123,7 +128,87 @@ Yakındaki İstasyonlar
 
 </section>
 
+<!-- ========================= -->
+<!-- İSTASYON DETAY -->
+<!-- ========================= -->
+
+<section id="stationDetailPage" class="page">
+
+<div class="profile-card">
+
+<h2 id="detailName">
+ADZE Charge
+</h2>
+
+<p id="detailCity">
+İstanbul / Ataşehir
+</p>
+
+</div>
+
+<div class="station-card">
+
+<h3>⚡ Doluluk</h3>
+
+<p id="detailOccupancy">
+%25
+</p>
+
+</div>
+
+<div class="station-card">
+
+<h3>🔌 Müsait Soket</h3>
+
+<p id="detailAvailable">
+6 / 8
+</p>
+
+</div>
+
+<div class="station-card">
+
+<h3>💰 Şarj Ücreti</h3>
+
+<p id="detailPrice">
+8.50 ₺/kWh
+</p>
+
+</div>
+
+<div class="station-card">
+
+<h3>⭐ Puan</h3>
+
+<p id="detailRating">
+4.8 (214)
+</p>
+
+</div>
+
+<div class="station-card">
+
+<h3>📍 Adres</h3>
+
+<p id="detailAddress">
+Barbaros Mah. Ataşehir Bulvarı No:42
+</p>
+
+</div>
+
+<button
+class="green-btn"
+style="margin:15px;width:calc(100% - 30px);">
+
+Yol Tarifi Al
+
+</button>
+
+</section>
+
+<!-- ========================= -->
 <!-- PROFİL -->
+<!-- ========================= -->
 
 <section id="profilePage" class="page">
 
@@ -140,11 +225,11 @@ Yakındaki İstasyonlar
 </div>
 
 <div class="menu-item">
-⭐ Favori İstasyonlar
+⭐ Favori İstasyonlarım
 </div>
 
 <div class="menu-item">
-🛣 Geçmiş Rotalar
+🛣 Geçmiş Rotalarım
 </div>
 
 <div class="menu-item">
@@ -153,7 +238,9 @@ Yakındaki İstasyonlar
 
 </section>
 
+<!-- ========================= -->
 <!-- ALT MENÜ -->
+<!-- ========================= -->
 
 <nav class="bottom-nav">
 
@@ -163,6 +250,8 @@ data-page="homePage">
 
 🏠
 
+<span>Ana Sayfa</span>
+
 </button>
 
 <button
@@ -170,6 +259,8 @@ class="nav-btn"
 data-page="routePage">
 
 🗺️
+
+<span>Rota</span>
 
 </button>
 
@@ -179,6 +270,8 @@ data-page="stationsPage">
 
 ⚡
 
+<span>İstasyonlar</span>
+
 </button>
 
 <button
@@ -187,14 +280,18 @@ data-page="profilePage">
 
 👤
 
+<span>Profil</span>
+
 </button>
 
 </nav>
 
 </div>
 
+<script src="js/stations.js"></script>
 <script src="js/map.js"></script>
 <script src="js/app.js"></script>
 
 </body>
 </html>
+```
