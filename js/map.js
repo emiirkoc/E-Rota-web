@@ -2,20 +2,6 @@ console.log("MAP BAŞLADI");
 
 window.addEventListener("load", () => {
 
-    console.log(document.getElementById("map"));
-
-    const mapElement =
-    document.getElementById("map");
-
-    if (!mapElement) {
-
-        alert("MAP BULUNAMADI");
-
-        return;
-    }
-
-    alert("MAP BULUNDU");
-
     const map = L.map("map").setView(
         [41.0082, 28.9784],
         11
@@ -46,5 +32,35 @@ window.addEventListener("load", () => {
         .bindPopup("⚡ " + station[0]);
 
     });
+
+    // Kullanıcı konumu
+
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(
+
+            (position) => {
+
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup("📍 Konumunuz")
+                .openPopup();
+
+                map.setView([lat, lng], 13);
+
+            },
+
+            () => {
+
+                console.log("Konum alınamadı");
+
+            }
+
+        );
+
+    }
 
 });
