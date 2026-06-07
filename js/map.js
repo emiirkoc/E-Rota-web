@@ -28,6 +28,8 @@ maxZoom:20
 
 window.stations.forEach(station => {
 
+window.stations.forEach(station => {
+
 L.marker([
 station.lat,
 station.lng
