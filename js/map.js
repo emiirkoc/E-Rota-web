@@ -20,9 +20,9 @@ const map = L.map("map").setView(
 window.map = map;
 
 L.tileLayer(
-"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+"https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
 {
-attribution:"© OpenStreetMap"
+maxZoom:20
 }
 ).addTo(map);
 
