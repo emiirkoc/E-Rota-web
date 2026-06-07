@@ -1,8 +1,8 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,7 +14,6 @@
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 </head>
 
 <body>
@@ -22,20 +21,16 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <div class="app">
 
 <header class="topbar">
-
-<div>
 <h1>E-Rota ⚡</h1>
 <p>Elektrikli yolculukların akıllı rotası</p>
-</div>
-
 </header>
 
-<section class="search-box">
+<div id="homePage">
 
+<section class="search-box">
 <input
 type="text"
 placeholder="Nereye gitmek istiyorsunuz?">
-
 </section>
 
 <section class="stats">
@@ -45,29 +40,92 @@ placeholder="Nereye gitmek istiyorsunuz?">
 </div>
 
 <div class="stat-card">
-🔋 %76 Ortalama Doluluk
+🟢 84 Boş
+</div>
+
+<div class="stat-card">
+🔴 44 Dolu
 </div>
 
 </section>
 
-<section id="map"></section>
+<div class="station-card">
+<h3>⚡ Trugo</h3>
+<p>Doluluk: %80</p>
+<p>0.8 km uzaklıkta</p>
+</div>
+
+</div>
+
+<div id="mapPage" style="display:none">
+<div id="map"></div>
+</div>
+
+<div id="stationsPage" style="display:none">
+
+<div class="station-card">
+⚡ Trugo - %80
+</div>
+
+<div class="station-card">
+⚡ ZES - %45
+</div>
+
+<div class="station-card">
+⚡ Eşarj - %60
+</div>
+
+<div class="station-card">
+⚡ Voltrun - %15
+</div>
+
+</div>
+
+<div id="profilePage" style="display:none">
+
+<div class="station-card">
+👤 Emirhan Koç
+</div>
+
+<div class="station-card">
+⭐ Favori İstasyonlar
+</div>
+
+<div class="station-card">
+🛣️ Geçmiş Rotalar
+</div>
+
+<div class="station-card">
+⚙️ Ayarlar
+</div>
+
+</div>
 
 <nav class="bottom-nav">
 
-<button>🏠</button>
+<button onclick="showPage('homePage')">
+🏠
+</button>
 
-<button>🗺️</button>
+<button onclick="showPage('mapPage')">
+🗺️
+</button>
 
-<button>⚡</button>
+<button onclick="showPage('stationsPage')">
+⚡
+</button>
 
-<button>👤</button>
+<button onclick="showPage('profilePage')">
+👤
+</button>
 
 </nav>
 
 </div>
 
 <script src="js/map.js"></script>
+<script src="js/app.js"></script>
 
 </body>
-
 </html>
+```
