@@ -1,4 +1,3 @@
-```javascript
 console.log("APP BAŞLADI");
 
 const navButtons =
@@ -28,7 +27,9 @@ navButtons.forEach(btn => {
 
 btn.classList.remove("active");
 
-if(btn.dataset.page === pageId){
+if(
+btn.dataset.page === pageId
+){
 
 btn.classList.add("active");
 
@@ -64,29 +65,3 @@ button.dataset.page
 });
 
 });
-
-const locationBtn =
-document.querySelector(".location-btn");
-
-if(locationBtn){
-
-locationBtn.addEventListener("click", () => {
-
-if(
-window.userMarker &&
-window.map
-){
-
-window.map.setView(
-window.userMarker.getLatLng(),
-15
-);
-
-window.userMarker.openPopup();
-
-}
-
-});
-
-}
-```
