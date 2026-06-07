@@ -3,12 +3,18 @@ console.log("MAP BAŞLADI");
 window.addEventListener("load", () => {
 
     if (typeof L === "undefined") {
-        document.getElementById("mapContainer").innerHTML =
-        "<div style='padding:20px;color:red'>Leaflet yüklenemedi.</div>";
+        console.log("Leaflet yüklenmedi");
         return;
     }
 
-    const map = L.map("mapContainer").setView(
+    const mapElement = document.getElementById("map");
+
+    if (!mapElement) {
+        console.log("Map elementi bulunamadı");
+        return;
+    }
+
+    const map = L.map("map").setView(
         [41.0082, 28.9784],
         11
     );
@@ -28,16 +34,14 @@ window.addEventListener("load", () => {
         ["Voltrun", 41.06, 29.05]
     ];
 
-    stations.forEach(station => {
+    stations.forEach((station) => {
 
         L.marker([
             station[1],
             station[2]
         ])
         .addTo(map)
-        .bindPopup(
-            "⚡ " + station[0]
-        );
+        .bindPopup("⚡ " + station[0]);
 
     });
 
