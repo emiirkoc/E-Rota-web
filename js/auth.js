@@ -86,19 +86,21 @@ onAuthStateChanged(auth, (user) => {
 if (!user) return;
 
 document.querySelector("main").innerHTML = `
-    <section class="card">
 
-        <h2>👋 Hoş Geldin</h2>
+<section class="card">
 
-        <p>${user.email}</p>
+<h2>👋 Hoş Geldin</h2>
 
-        <br>
+<p>${user.email}</p>
 
-        <button id="logoutBtn">
-            Çıkış Yap
-        </button>
+<br>
 
-    </section>
+<button id="logoutBtn">
+Çıkış Yap
+</button>
+
+</section>
+
 `;
 
 const logoutBtn =
