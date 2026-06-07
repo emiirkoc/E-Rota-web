@@ -2,17 +2,19 @@ console.log("MAP BAŞLADI");
 
 window.addEventListener("load", () => {
 
-    if (typeof L === "undefined") {
-        console.log("Leaflet yüklenmedi");
-        return;
-    }
+    console.log(document.getElementById("map"));
 
-    const mapElement = document.getElementById("map");
+    const mapElement =
+    document.getElementById("map");
 
     if (!mapElement) {
-        console.log("Map elementi bulunamadı");
+
+        alert("MAP BULUNAMADI");
+
         return;
     }
+
+    alert("MAP BULUNDU");
 
     const map = L.map("map").setView(
         [41.0082, 28.9784],
