@@ -2,11 +2,10 @@
 <html lang="tr">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Rota 1.0</title>
+<title>E-Rota</title>
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -21,7 +20,7 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <header class="header">
 
-<div class="logo-box">
+<div class="logo">
 ⚡📍
 </div>
 
@@ -33,7 +32,7 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <main>
 
-<section class="card">
+<section class="card" id="authCard">
 
 <h2>Giriş Yap</h2>
 
@@ -57,11 +56,26 @@ Kayıt Ol
 
 </section>
 
+<section
+class="card"
+id="userPanel"
+style="display:none;">
+
+<h2>👋 Hoş Geldin</h2>
+
+<p id="userEmail"></p>
+
+<button id="logoutBtn">
+Çıkış Yap
+</button>
+
+</section>
+
 <section class="card">
 
 <h2>Harita</h2>
 
-<div id="mapContainer"></div>
+<div id="map"></div>
 
 </section>
 
