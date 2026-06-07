@@ -9,58 +9,63 @@ import {
 
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
+
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 
-if (loginBtn) {
-  loginBtn.onclick = async () => {
-    try {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value.trim();
+const authCard = document.getElementById("authCard");
+const userPanel = document.getElementById("userPanel");
+const userEmail = document.getElementById("userEmail");
+const logoutBtn = document.getElementById("logoutBtn");
 
-      await signInWithEmailAndPassword(auth, email, password);
+// Giriş
+loginBtn?.addEventListener("click", async () => {
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      emailInput.value.trim(),
+      passwordInput.value.trim()
+    );
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
-      alert("Giriş başarılı");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-}
+// Kayıt
+registerBtn?.addEventListener("click", async () => {
+  try {
+    await createUserWithEmailAndPassword(
+      auth,
+      emailInput.value.trim(),
+      passwordInput.value.trim()
+    );
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
-if (registerBtn) {
-  registerBtn.onclick = async () => {
-    try {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value.trim();
-
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      alert("Kayıt başarılı");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-}
-
+// Oturum Takibi
 onAuthStateChanged(auth, (user) => {
-  if (!user) return;
 
-  document.querySelector("main").innerHTML = `
-    <section class="card">
-      <h2>👋 Hoş Geldin</h2>
-      <p>${user.email}</p>
-      <button id="logoutBtn">Çıkış Yap</button>
-    </section>
-  `;
+  if (user) {
 
-  const logoutBtn = document.getElementById("logoutBtn");
+    authCard.style.display = "none";
 
-  logoutBtn.onclick = async () => {
-    await signOut(auth);
-    location.reload();
-  };
+    userPanel.style.display = "block";
+
+    userEmail.textContent = user.email;
+
+  } else {
+
+    authCard.style.display = "block";
+
+    userPanel.style.display = "none";
+
+  }
+
+});
+
+// Çıkış
+logoutBtn?.addEventListener("click", async () => {
+  await signOut(auth);
 });
