@@ -7,8 +7,9 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#031425;
+background:#061524;
 color:white;
+overflow:hidden;
 }
 
 .app{
@@ -21,7 +22,7 @@ overflow:hidden;
 .page{
 display:none;
 width:100%;
-height:100%;
+height:100vh;
 }
 
 .page.active{
@@ -37,14 +38,14 @@ height:100vh;
 position:absolute;
 top:0;
 left:0;
-right:0;
-bottom:80px;
+width:100%;
+height:100%;
 z-index:1;
 }
 
 .top-search{
 position:absolute;
-top:15px;
+top:20px;
 left:15px;
 right:15px;
 z-index:1000;
@@ -52,11 +53,11 @@ z-index:1000;
 
 .top-search input{
 width:100%;
-height:55px;
+height:60px;
 border:none;
-border-radius:16px;
-padding:0 15px;
-background:#0b2138;
+border-radius:20px;
+padding:0 20px;
+background:rgba(6,21,36,.95);
 color:white;
 font-size:16px;
 outline:none;
@@ -67,92 +68,12 @@ position:absolute;
 left:15px;
 right:15px;
 bottom:95px;
-background:#0b2138;
+background:rgba(6,21,36,.95);
 padding:20px;
-border-radius:20px;
+border-radius:25px;
 z-index:1000;
 }
 
-.route-card h2{
-color:#20f5a8;
-margin-bottom:10px;
-}
-
-.route-card p{
-margin-bottom:15px;
-color:#9db0c4;
-}
-
-#routeBtn,
-.green-btn{
-width:100%;
-height:50px;
-border:none;
-border-radius:12px;
-background:#20f5a8;
-color:#031425;
-font-weight:bold;
-font-size:16px;
-cursor:pointer;
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:80px;
-background:#071a2d;
-display:flex;
-justify-content:space-around;
-align-items:center;
-border-top:1px solid rgba(255,255,255,.1);
-z-index:999999;
-}
-
-.nav-btn{
-background:none;
-border:none;
-color:white;
-font-size:28px;
-cursor:pointer;
-width:60px;
-height:60px;
-}
-
-.nav-btn.active{
-color:#20f5a8;
-}
-
-.content{
-padding:20px;
-padding-top:40px;
-}
-
-.input{
-width:100%;
-height:50px;
-border:none;
-border-radius:12px;
-padding:0 15px;
-margin-top:10px;
-margin-bottom:15px;
-background:#0b2138;
-color:white;
-outline:none;
-}
-
-.station-card{
-background:#0b2138;
-padding:15px;
-border-radius:15px;
-margin-top:10px;
-}
-
-.leaflet-control-attribution{
-display:none;
-}
-```
 .route-top{
 display:flex;
 justify-content:space-between;
@@ -162,24 +83,114 @@ margin-bottom:10px;
 
 .route-top h2{
 font-size:30px;
-color:#20f5a8;
+color:#21ff9b;
 }
 
 .route-top span{
-color:#9db0c4;
+color:#9fb3c8;
 font-size:18px;
+}
+
+.route-card p{
+margin-bottom:15px;
+color:#9fb3c8;
 }
 
 .battery-box{
 background:#10263d;
-padding:12px;
-border-radius:12px;
-margin-bottom:15px;
+padding:14px;
+border-radius:14px;
 display:flex;
 justify-content:space-between;
+margin-bottom:15px;
 }
 
 #routeBtn{
+width:100%;
 height:55px;
-font-size:17px;
+border:none;
+border-radius:14px;
+background:#21ff9b;
+color:#061524;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
 }
+
+.bottom-nav{
+position:fixed;
+left:15px;
+right:15px;
+bottom:15px;
+height:75px;
+background:rgba(6,21,36,.97);
+border-radius:22px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:999999;
+}
+
+.nav-btn{
+background:none;
+border:none;
+color:#8ea4ba;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+cursor:pointer;
+}
+
+.nav-btn span{
+font-size:24px;
+}
+
+.nav-btn small{
+font-size:11px;
+}
+
+.nav-btn.active{
+color:#21ff9b;
+}
+
+.content{
+padding:20px;
+padding-top:40px;
+}
+
+.input{
+width:100%;
+height:55px;
+border:none;
+border-radius:14px;
+padding:0 15px;
+margin-bottom:15px;
+background:#10263d;
+color:white;
+outline:none;
+}
+
+.green-btn{
+width:100%;
+height:55px;
+border:none;
+border-radius:14px;
+background:#21ff9b;
+color:#061524;
+font-weight:bold;
+font-size:16px;
+}
+
+.station-card{
+background:#10263d;
+padding:15px;
+border-radius:15px;
+margin-bottom:12px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+```
