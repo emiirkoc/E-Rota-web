@@ -1,66 +1,35 @@
-console.log("MAP BAŞLADI");
+const map = L.map("map").setView(
+[41.0082,28.9784],
+10
+);
 
-window.addEventListener("load", () => {
+L.tileLayer(
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+attribution:"© OpenStreetMap"
+}
+).addTo(map);
 
-    const map = L.map("map").setView(
-        [41.0082, 28.9784],
-        11
-    );
+const stations = [
 
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            attribution: "© OpenStreetMap"
-        }
-    ).addTo(map);
+["Trugo",41.0082,28.9784],
+["ZES",41.05,29.02],
+["Eşarj",41.10,29.15],
+["Voltrun",40.98,29.05]
 
-    const stations = [
-        ["ADZE Charge", 41.055, 29.021],
-        ["Trugo", 41.0082, 28.9784],
-        ["ZES", 41.02, 29.10],
-        ["Eşarj", 41.03, 29.03],
-        ["Voltrun", 41.06, 29.05]
-    ];
+];
 
-    stations.forEach((station) => {
+stations.forEach(station=>{
 
-        L.marker([
-            station[1],
-            station[2]
-        ])
-        .addTo(map)
-        .bindPopup("⚡ " + station[0]);
+L.marker([
+station[1],
+station[2]
+])
 
-    });
+.addTo(map)
 
-    // Kullanıcı konumu
-
-    if (navigator.geolocation) {
-
-        navigator.geolocation.getCurrentPosition(
-
-            (position) => {
-
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-
-                L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup("📍 Konumunuz")
-                .openPopup();
-
-                map.setView([lat, lng], 13);
-
-            },
-
-            () => {
-
-                console.log("Konum alınamadı");
-
-            }
-
-        );
-
-    }
+.bindPopup(
+"⚡ "+station[0]
+);
 
 });
