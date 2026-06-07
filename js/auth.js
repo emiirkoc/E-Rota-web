@@ -1,2 +1,2 @@
-console.log("AUTH TEST ÇALIŞTI");
 alert("AUTH TEST ÇALIŞTI");
+console.log("AUTH TEST ÇALIŞTI");
