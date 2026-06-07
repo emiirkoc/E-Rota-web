@@ -1,4 +1,5 @@
-console.log("APP BAŞLADI");
+```javascript
+console.log("APP V2 BAŞLADI");
 
 const navButtons =
 document.querySelectorAll(".nav-btn");
@@ -6,12 +7,7 @@ document.querySelectorAll(".nav-btn");
 const pages =
 document.querySelectorAll(".page");
 
-navButtons.forEach(button => {
-
-button.addEventListener("click", () => {
-
-const pageId =
-button.dataset.page;
+function showPage(pageId){
 
 pages.forEach(page => {
 
@@ -32,9 +28,13 @@ navButtons.forEach(btn => {
 
 btn.classList.remove("active");
 
-});
+if(btn.dataset.page === pageId){
 
-button.classList.add("active");
+btn.classList.add("active");
+
+}
+
+});
 
 if(
 pageId === "homePage" &&
@@ -48,6 +48,18 @@ window.map.invalidateSize();
 },300);
 
 }
+
+}
+
+window.showPage = showPage;
+
+navButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+
+showPage(
+button.dataset.page
+);
 
 });
 
@@ -77,3 +89,49 @@ window.userMarker.openPopup();
 });
 
 }
+
+// İSTASYON DETAY SAYFASI
+
+window.openStation = (station) => {
+
+document.getElementById(
+"detailName"
+).innerText =
+station.name;
+
+document.getElementById(
+"detailCity"
+).innerText =
+station.city;
+
+document.getElementById(
+"detailOccupancy"
+).innerText =
+"%" + station.occupancy;
+
+document.getElementById(
+"detailAvailable"
+).innerText =
+station.available;
+
+document.getElementById(
+"detailPrice"
+).innerText =
+station.price;
+
+document.getElementById(
+"detailRating"
+).innerText =
+station.rating;
+
+document.getElementById(
+"detailAddress"
+).innerText =
+station.address;
+
+showPage(
+"stationDetailPage"
+);
+
+};
+```
