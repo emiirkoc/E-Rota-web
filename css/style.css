@@ -1,3 +1,4 @@
+```css
 *{
 margin:0;
 padding:0;
@@ -5,16 +6,24 @@ box-sizing:border-box;
 font-family:Inter,Arial,sans-serif;
 }
 
+:root{
+--bg:#031425;
+--card:#0b2138;
+--primary:#20f5a8;
+--text:#ffffff;
+--muted:#9db0c4;
+}
+
 body{
-background:#031425;
-color:white;
+background:var(--bg);
+color:var(--text);
 overflow:hidden;
 }
 
 .mobile-app{
-position:relative;
 width:100%;
 height:100vh;
+position:relative;
 overflow:hidden;
 }
 
@@ -36,50 +45,49 @@ z-index:1;
 
 .top-search{
 position:absolute;
-top:20px;
+top:18px;
 left:15px;
 right:15px;
-z-index:999;
 display:flex;
 gap:10px;
-align-items:center;
+z-index:1000;
 }
 
 .top-search input{
 flex:1;
-height:55px;
+height:56px;
+background:var(--card);
 border:none;
-outline:none;
-background:#0a2038;
-color:white;
 border-radius:18px;
-padding:0 20px;
+padding:0 18px;
+color:white;
 font-size:15px;
+outline:none;
 }
 
 .menu-btn,
 .filter-btn{
-width:55px;
-height:55px;
+width:56px;
+height:56px;
 border:none;
 border-radius:18px;
-background:#0a2038;
+background:var(--card);
 color:white;
 font-size:20px;
 }
 
 .location-btn{
 position:absolute;
-right:20px;
-bottom:220px;
-width:55px;
-height:55px;
+right:18px;
+bottom:235px;
+width:58px;
+height:58px;
 border:none;
 border-radius:50%;
-background:#0a2038;
+background:var(--card);
 color:white;
 font-size:22px;
-z-index:999;
+z-index:1000;
 }
 
 .route-card{
@@ -87,27 +95,27 @@ position:absolute;
 left:15px;
 right:15px;
 bottom:90px;
-background:#071d34;
-border-radius:24px;
-padding:20px;
-z-index:999;
+background:rgba(11,33,56,.95);
 backdrop-filter:blur(10px);
+padding:22px;
+border-radius:26px;
+z-index:1000;
 }
 
 .route-card h2{
 font-size:32px;
-margin-bottom:10px;
-color:#20f5a8;
+color:var(--primary);
+margin-bottom:8px;
 }
 
 .route-card span{
 font-size:20px;
-color:#a6b8ca;
+color:var(--muted);
 }
 
 .route-card p{
-color:#a6b8ca;
-margin-bottom:15px;
+color:var(--muted);
+margin-bottom:14px;
 }
 
 .battery-info{
@@ -115,15 +123,16 @@ margin-bottom:15px;
 font-size:15px;
 }
 
-.start-route-btn{
+.start-route-btn,
+.green-btn{
 width:100%;
-height:55px;
+height:56px;
 border:none;
 border-radius:16px;
-background:#20f5a8;
-color:#031425;
-font-weight:700;
+background:var(--primary);
+color:#02111f;
 font-size:17px;
+font-weight:700;
 }
 
 .bottom-nav{
@@ -131,83 +140,87 @@ position:fixed;
 left:0;
 right:0;
 bottom:0;
-height:75px;
-background:#071d34;
+height:80px;
+background:#071a2d;
 display:flex;
 justify-content:space-around;
 align-items:center;
-z-index:999;
+z-index:9999;
+border-top:1px solid rgba(255,255,255,.08);
 }
 
 .nav-btn{
 background:none;
 border:none;
-color:#8aa0b5;
-font-size:26px;
+color:#8ca1b5;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:4px;
+font-size:22px;
+}
+
+.nav-btn span{
+font-size:11px;
 }
 
 .nav-btn.active{
-color:#20f5a8;
+color:var(--primary);
 }
 
 .page-card{
 padding:20px;
+padding-top:40px;
 }
 
-.page-card h2{
-margin-top:20px;
-margin-bottom:20px;
+.page-title{
+padding:20px;
+padding-top:40px;
 }
 
 .input{
 width:100%;
 height:55px;
+background:var(--card);
 border:none;
-outline:none;
-background:#0a2038;
 border-radius:16px;
 padding:0 15px;
 color:white;
 margin-bottom:15px;
+outline:none;
 }
 
 .battery-box{
-background:#0a2038;
+background:var(--card);
 padding:15px;
 border-radius:16px;
 margin-bottom:15px;
 }
 
-.green-btn{
-width:100%;
-height:55px;
-border:none;
-border-radius:16px;
-background:#20f5a8;
-font-weight:bold;
-}
-
-.page-title{
-padding:20px;
-}
-
-.station-card{
-background:#0a2038;
-margin:15px;
-padding:18px;
-border-radius:18px;
-}
-
-.profile-card{
-background:#0a2038;
-margin:15px;
-padding:20px;
-border-radius:18px;
-}
-
+.station-card,
+.profile-card,
 .menu-item{
-background:#0a2038;
+background:var(--card);
 margin:15px;
 padding:18px;
 border-radius:18px;
 }
+
+.station-card h3,
+.profile-card h3{
+margin-bottom:8px;
+}
+
+.station-card p,
+.profile-card p{
+color:var(--muted);
+}
+
+.leaflet-container{
+background:#0a1827;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+```
