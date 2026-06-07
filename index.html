@@ -2,6 +2,7 @@
 <html lang="tr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,73 +19,55 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <body>
 
-<header class="header">
+<div class="app">
 
-<div class="logo">
-⚡📍
+<header class="topbar">
+
+<div>
+<h1>E-Rota ⚡</h1>
+<p>Elektrikli yolculukların akıllı rotası</p>
 </div>
-
-<h1>E-Rota</h1>
-
-<p>Elektrikli Yolculukların Akıllı Rotası</p>
 
 </header>
 
-<main>
-
-<section class="card" id="authCard">
-
-<h2>Giriş Yap</h2>
+<section class="search-box">
 
 <input
-type="email"
-id="email"
-placeholder="E-Posta">
-
-<input
-type="password"
-id="password"
-placeholder="Şifre">
-
-<button id="loginBtn">
-Giriş Yap
-</button>
-
-<button id="registerBtn">
-Kayıt Ol
-</button>
+type="text"
+placeholder="Nereye gitmek istiyorsunuz?">
 
 </section>
 
-<section
-class="card"
-id="userPanel"
-style="display:none;">
+<section class="stats">
 
-<h2>👋 Hoş Geldin</h2>
+<div class="stat-card">
+⚡ 128 İstasyon
+</div>
 
-<p id="userEmail"></p>
-
-<button id="logoutBtn">
-Çıkış Yap
-</button>
+<div class="stat-card">
+🔋 %76 Ortalama Doluluk
+</div>
 
 </section>
 
-<section class="card">
+<section id="map"></section>
 
-<h2>Harita</h2>
+<nav class="bottom-nav">
 
-<div id="map"></div>
+<button>🏠</button>
 
-</section>
+<button>🗺️</button>
 
-</main>
+<button>⚡</button>
 
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/auth.js"></script>
-<script type="module" src="js/map.js"></script>
-<script type="module" src="js/app.js"></script>
+<button>👤</button>
+
+</nav>
+
+</div>
+
+<script src="js/map.js"></script>
 
 </body>
+
 </html>
