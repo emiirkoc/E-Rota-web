@@ -84,7 +84,7 @@ onAuthStateChanged(auth, (user) => {
         <section class="card">
             <h2>👋 Hoş Geldin</h2>
 
-            <p><strong>${user.email}</strong></p>
+            <p><strong>GİRİŞ BAŞARILI</strong></p>
 
             <br>
 
