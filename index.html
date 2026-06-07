@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,77 +9,49 @@
 <link rel="stylesheet" href="css/style.css">
 
 <link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 
-<script
-src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 
 </head>
 
 <body>
 
-<div class="mobile-app">
+<div class="app">
 
-<!-- ========================= -->
 <!-- ANA SAYFA -->
-<!-- ========================= -->
 
 <section id="homePage" class="page active">
 
 <div class="top-search">
 
-<button class="menu-btn">
-☰
-</button>
-
 <input
 type="text"
 placeholder="Nereye gitmek istiyorsunuz?">
-
-<button class="filter-btn">
-⚙
-</button>
 
 </div>
 
 <div id="map"></div>
 
-<button class="location-btn">
-📍
-</button>
-
 <div class="route-card">
 
-<h2>
-4 sa 35 dk
-<span>(356 km)</span>
-</h2>
+<h2>E-Rota ⚡</h2>
 
-<p>
-3 şarj molası • Tahmini varış 15:42
-</p>
+<p>Elektrikli yolculukların akıllı rotası</p>
 
-<div class="battery-info">
-Batarya varışta:
-<strong>%18</strong>
-</div>
-
-<button class="start-route-btn">
-Rotayı Başlat ➜
+<button id="routeBtn">
+Rotayı Başlat
 </button>
 
 </div>
 
 </section>
 
-<!-- ========================= -->
-<!-- ROTA PLANLA -->
-<!-- ========================= -->
+<!-- ROTA -->
 
 <section id="routePage" class="page">
 
-<div class="page-card">
+<div class="content">
 
 <h2>Rota Planla</h2>
 
@@ -93,18 +63,6 @@ placeholder="Başlangıç Noktası">
 class="input"
 placeholder="Varış Noktası">
 
-<div class="battery-box">
-
-<p>Batarya Yüzdesi</p>
-
-<input
-type="range"
-min="1"
-max="100"
-value="65">
-
-</div>
-
 <button class="green-btn">
 Rota Oluştur
 </button>
@@ -113,174 +71,60 @@ Rota Oluştur
 
 </section>
 
-<!-- ========================= -->
 <!-- İSTASYONLAR -->
-<!-- ========================= -->
 
 <section id="stationsPage" class="page">
 
-<h2 class="page-title">
-Yakındaki İstasyonlar
-</h2>
+<div class="content">
+
+<h2>İstasyonlar</h2>
 
 <div id="stationsList"></div>
 
-</section>
-
-<!-- ========================= -->
-<!-- İSTASYON DETAY -->
-<!-- ========================= -->
-
-<section id="stationDetailPage" class="page">
-
-<div class="profile-card">
-
-<h2 id="detailName">
-ADZE Charge
-</h2>
-
-<p id="detailCity">
-İstanbul / Ataşehir
-</p>
-
 </div>
-
-<div class="station-card">
-
-<h3>⚡ Doluluk</h3>
-
-<p id="detailOccupancy">
-%25
-</p>
-
-</div>
-
-<div class="station-card">
-
-<h3>🔌 Müsait Soket</h3>
-
-<p id="detailAvailable">
-6 / 8
-</p>
-
-</div>
-
-<div class="station-card">
-
-<h3>💰 Şarj Ücreti</h3>
-
-<p id="detailPrice">
-8.50 ₺/kWh
-</p>
-
-</div>
-
-<div class="station-card">
-
-<h3>⭐ Puan</h3>
-
-<p id="detailRating">
-4.8 (214)
-</p>
-
-</div>
-
-<div class="station-card">
-
-<h3>📍 Adres</h3>
-
-<p id="detailAddress">
-Barbaros Mah. Ataşehir Bulvarı No:42
-</p>
-
-</div>
-
-<button
-class="green-btn"
-style="margin:15px;width:calc(100% - 30px);">
-
-Yol Tarifi Al
-
-</button>
 
 </section>
 
-<!-- ========================= -->
 <!-- PROFİL -->
-<!-- ========================= -->
 
 <section id="profilePage" class="page">
 
-<div class="profile-card">
+<div class="content">
 
-<h3>Emirhan Koç</h3>
+<h2>Profil</h2>
 
-<p>E-Rota Kullanıcısı</p>
+<p>Emirhan Koç</p>
 
-</div>
-
-<div class="menu-item">
-🚗 Araçlarım
-</div>
-
-<div class="menu-item">
-⭐ Favori İstasyonlarım
-</div>
-
-<div class="menu-item">
-🛣 Geçmiş Rotalarım
-</div>
-
-<div class="menu-item">
-⚙ Ayarlar
 </div>
 
 </section>
 
-<!-- ========================= -->
 <!-- ALT MENÜ -->
-<!-- ========================= -->
 
 <nav class="bottom-nav">
 
 <button
 class="nav-btn active"
 data-page="homePage">
-
 🏠
-
-<span>Ana Sayfa</span>
-
 </button>
 
 <button
 class="nav-btn"
 data-page="routePage">
-
 🗺️
-
-<span>Rota</span>
-
 </button>
 
 <button
 class="nav-btn"
 data-page="stationsPage">
-
 ⚡
-
-<span>İstasyonlar</span>
-
 </button>
 
 <button
 class="nav-btn"
 data-page="profilePage">
-
 👤
-
-<span>Profil</span>
-
 </button>
 
 </nav>
