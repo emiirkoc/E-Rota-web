@@ -1,67 +1,36 @@
 console.log("APP BAŞLADI");
 
-const navButtons =
-document.querySelectorAll(".nav-btn");
-
-const pages =
-document.querySelectorAll(".page");
+const navButtons = document.querySelectorAll(".nav-btn");
+const pages = document.querySelectorAll(".page");
 
 function showPage(pageId){
 
-pages.forEach(page => {
+  pages.forEach(page=>{
+    page.classList.remove("active");
+  });
 
-page.classList.remove("active");
+  const targetPage = document.getElementById(pageId);
 
-});
+  if(targetPage){
+    targetPage.classList.add("active");
+  }
 
-const targetPage =
-document.getElementById(pageId);
+  navButtons.forEach(btn=>{
+    btn.classList.remove("active");
 
-if(targetPage){
-
-targetPage.classList.add("active");
-
-}
-
-navButtons.forEach(btn => {
-
-btn.classList.remove("active");
-
-if(
-btn.dataset.page === pageId
-){
-
-btn.classList.add("active");
+    if(btn.dataset.page === pageId){
+      btn.classList.add("active");
+    }
+  });
 
 }
 
-});
+navButtons.forEach(button=>{
 
-if(
-pageId === "homePage" &&
-window.map
-){
+  button.addEventListener("click",()=>{
 
-setTimeout(() => {
+    showPage(button.dataset.page);
 
-window.map.invalidateSize();
-
-},300);
-
-}
-
-}
-
-window.showPage = showPage;
-
-navButtons.forEach(button => {
-
-button.addEventListener("click", () => {
-
-showPage(
-button.dataset.page
-);
-
-});
+  });
 
 });
