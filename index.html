@@ -10,10 +10,8 @@
 
 <link rel="stylesheet" href="css/style.css">
 
-<link
-rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
-/>
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
 
 <script
 src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js">
@@ -23,136 +21,172 @@ src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js">
 
 <body>
 
-<div class="app">
+<div class="mobile-app">
 
-<header class="topbar">
+<!-- HARİTA SAYFASI -->
 
-<h1>E-Rota ⚡</h1>
+<section id="homePage" class="page active">
 
-<p>Elektrikli yolculukların akıllı rotası</p>
+<div class="top-search">
 
-</header>
-
-<!-- ANA SAYFA -->
-
-<div id="homePage">
-
-<section class="search-box">
+<button class="menu-btn">
+☰
+</button>
 
 <input
 type="text"
 placeholder="Nereye gitmek istiyorsunuz?">
 
-</section>
-
-<section class="stats">
-
-<div class="stat-card">
-⚡ 128 İstasyon
-</div>
-
-<div class="stat-card">
-🟢 84 Boş
-</div>
-
-<div class="stat-card">
-🔴 44 Dolu
-</div>
-
-</section>
-
-<div class="station-card">
-
-<h3>⚡ En Yakın İstasyon</h3>
-
-<p>Trugo</p>
-
-<p>0.8 km uzaklıkta</p>
-
-<button>
-Detayları Gör
+<button class="filter-btn">
+⚙
 </button>
 
 </div>
 
-<div class="station-card">
-
-<h3>🔋 Batarya Durumu</h3>
-
-<p>%76</p>
-
-</div>
-
-</div>
-
-<!-- HARİTA SAYFASI -->
-
-<div id="mapPage">
-
 <div id="map"></div>
 
+<button class="location-btn">
+📍
+</button>
+
+<div class="route-card">
+
+<h2>
+4 sa 35 dk
+<span>(356 km)</span>
+</h2>
+
+<p>
+3 şarj molası • Tahmini varış 15:42
+</p>
+
+<div class="battery-info">
+
+Batarya varışta:
+<strong>%18</strong>
+
 </div>
 
-<!-- İSTASYONLAR SAYFASI -->
+<button class="start-route-btn">
+Rotayı Başlat ➜
+</button>
 
-<div id="stationsPage" style="display:none">
+</div>
 
-<h2 style="padding:15px">
+</section>
+
+<!-- ROTA SAYFASI -->
+
+<section id="routePage" class="page">
+
+<div class="page-card">
+
+<h2>Rota Planla</h2>
+
+<input
+class="input"
+placeholder="Başlangıç Noktası">
+
+<input
+class="input"
+placeholder="Varış Noktası">
+
+<div class="battery-box">
+
+<p>Batarya %65</p>
+
+<input
+type="range"
+min="1"
+max="100"
+value="65">
+
+</div>
+
+<button class="green-btn">
+Rota Oluştur
+</button>
+
+</div>
+
+</section>
+
+<!-- İSTASYONLAR -->
+
+<section id="stationsPage" class="page">
+
+<h2 class="page-title">
 Yakındaki İstasyonlar
 </h2>
 
 <div id="stationsList"></div>
 
-</div>
+</section>
 
-<!-- PROFİL SAYFASI -->
+<!-- PROFİL -->
 
-<div id="profilePage" style="display:none">
+<section id="profilePage" class="page">
 
-<div class="station-card">
+<div class="profile-card">
 
-<h3>👤 Emirhan Koç</h3>
+<h3>Emirhan Koç</h3>
 
 <p>E-Rota Kullanıcısı</p>
 
 </div>
 
-<div class="station-card">
+<div class="menu-item">
+🚗 Araçlarım
+</div>
+
+<div class="menu-item">
 ⭐ Favori İstasyonlar
 </div>
 
-<div class="station-card">
-🛣️ Geçmiş Rotalar
+<div class="menu-item">
+🛣 Geçmiş Rotalar
 </div>
 
-<div class="station-card">
-⚙️ Ayarlar
+<div class="menu-item">
+⚙ Ayarlar
 </div>
 
-<div class="station-card">
-🚪 Çıkış Yap
-</div>
-
-</div>
+</section>
 
 <!-- ALT MENÜ -->
 
 <nav class="bottom-nav">
 
-<button onclick="showPage('homePage')">
+<button
+class="nav-btn active"
+data-page="homePage">
+
 🏠
+
 </button>
 
-<button onclick="showPage('mapPage')">
+<button
+class="nav-btn"
+data-page="routePage">
+
 🗺️
+
 </button>
 
-<button onclick="showPage('stationsPage')">
+<button
+class="nav-btn"
+data-page="stationsPage">
+
 ⚡
+
 </button>
 
-<button onclick="showPage('profilePage')">
+<button
+class="nav-btn"
+data-page="profilePage">
+
 👤
+
 </button>
 
 </nav>
@@ -163,5 +197,4 @@ Yakındaki İstasyonlar
 <script src="js/app.js"></script>
 
 </body>
-
 </html>
