@@ -1,110 +1,79 @@
 console.log("APP BAŞLADI");
 
-// Sayfa geçişleri
+const navButtons =
+document.querySelectorAll(".nav-btn");
 
-function showPage(pageId) {
+const pages =
+document.querySelectorAll(".page");
 
-    const pages = [
-        "homePage",
-        "mapPage",
-        "stationsPage",
-        "profilePage"
-    ];
+navButtons.forEach(button => {
 
-    pages.forEach(page => {
+button.addEventListener("click", () => {
 
-        const element =
-        document.getElementById(page);
+const pageId =
+button.dataset.page;
 
-        if (element) {
-            element.style.display = "none";
-        }
+pages.forEach(page => {
 
-    });
+page.classList.remove("active");
 
-    const activePage =
-    document.getElementById(pageId);
+});
 
-    if (activePage) {
-        activePage.style.display = "block";
-    }
+const targetPage =
+document.getElementById(pageId);
 
-    // Menü aktifliği
+if(targetPage){
 
-    document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn => {
-
-        btn.classList.remove("active");
-
-    });
-
-    const activeButton =
-    document.querySelector(
-        `[data-page="${pageId}"]`
-    );
-
-    if (activeButton) {
-
-        activeButton.classList.add(
-            "active"
-        );
-
-    }
-
-    // Harita yeniden çizilsin
-
-    if (pageId === "mapPage") {
-
-        setTimeout(() => {
-
-            window.dispatchEvent(
-                new Event("resize")
-            );
-
-        }, 300);
-
-    }
+targetPage.classList.add("active");
 
 }
 
-// Global erişim
+navButtons.forEach(btn => {
 
-window.showPage = showPage;
+btn.classList.remove("active");
 
-// Batarya sistemi
+});
 
-window.addEventListener(
-    "DOMContentLoaded",
-    () => {
+button.classList.add("active");
 
-        const batterySlider =
-        document.getElementById(
-            "batterySlider"
-        );
+if(
+pageId === "homePage" &&
+window.map
+){
 
-        const batteryText =
-        document.getElementById(
-            "batteryText"
-        );
+setTimeout(() => {
 
-        if (
-            batterySlider &&
-            batteryText
-        ) {
+window.map.invalidateSize();
 
-            batterySlider.addEventListener(
-                "input",
-                () => {
+},300);
 
-                    batteryText.textContent =
-                    "%" +
-                    batterySlider.value;
+}
 
-                }
-            );
+});
 
-        }
+});
 
-    }
+const locationBtn =
+document.querySelector(".location-btn");
+
+if(locationBtn){
+
+locationBtn.addEventListener("click", () => {
+
+if(
+window.userMarker &&
+window.map
+){
+
+window.map.setView(
+window.userMarker.getLatLng(),
+15
 );
+
+window.userMarker.openPopup();
+
+}
+
+});
+
+}
