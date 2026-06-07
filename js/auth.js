@@ -1,3 +1,5 @@
+alert("YENİ AUTH YÜKLENDİ");
+console.log("YENİ AUTH YÜKLENDİ");
 import { auth } from "./firebase.js";
 
 import {
