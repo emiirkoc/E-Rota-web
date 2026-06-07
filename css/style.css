@@ -153,3 +153,33 @@ margin-top:10px;
 display:none;
 }
 ```
+.route-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.route-top h2{
+font-size:30px;
+color:#20f5a8;
+}
+
+.route-top span{
+color:#9db0c4;
+font-size:18px;
+}
+
+.battery-box{
+background:#10263d;
+padding:12px;
+border-radius:12px;
+margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+}
+
+#routeBtn{
+height:55px;
+font-size:17px;
+}
